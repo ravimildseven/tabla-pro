@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabla Pro — Tabla Basics for Kids</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff8ef; --card:#ffffff; --ink:#3b2f2f; --soft:#8a7b6e;
+  --saffron:#e8630a; --saffron-soft:#fdebd9; --teal:#0e7d72; --teal-soft:#e0f2ef;
+  --gold:#c99117; --gold-soft:#fcf3dc; --plum:#8e3b6e; --plum-soft:#f7e6f0;
+  --line:#efe3d3; --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;line-height:1.6}
+h1,h2,h3,h4,.tab{font-family:'Baloo 2','Nunito',system-ui,sans-serif}
+
+header{background:linear-gradient(135deg,#7a1f0c,#b93b0e 55%,#e8630a);color:#fff;padding:38px 20px 30px;text-align:center}
+header h1{font-size:clamp(1.7rem,4.5vw,2.6rem);letter-spacing:.5px}
+header p{max-width:660px;margin:6px auto 0;opacity:.92;font-size:1.02rem}
+.drums-emoji{font-size:1.9rem;letter-spacing:8px}
+
+nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px;flex-wrap:wrap;box-shadow:0 2px 10px rgba(60,40,20,.06)}
+.tab{border:none;background:none;font-size:1rem;font-weight:700;color:var(--soft);padding:8px 16px;border-radius:999px;cursor:pointer;transition:.15s}
+.tab:hover{color:var(--saffron)}
+.tab.on{background:var(--saffron);color:#fff}
+
+main{max-width:1020px;margin:0 auto;padding:26px 16px 70px}
+section{display:none}section.show{display:block}
+.intro{background:var(--teal-soft);border-radius:var(--radius);padding:16px 20px;margin-bottom:22px;font-size:.98rem}
+.intro b{color:var(--teal)}
+
+/* level headers */
+.lvl{display:flex;align-items:baseline;gap:12px;margin:30px 4px 14px;flex-wrap:wrap}
+.lvl:first-child{margin-top:0}
+.lvl h2{font-size:1.3rem}
+.lvl .desc{color:var(--soft);font-size:.93rem}
+.lvl.saffron h2{color:#a34406}.lvl.teal h2{color:var(--teal)}.lvl.plum h2{color:var(--plum)}.lvl.gold h2{color:#8a6410}
+.lvlbadge{font-size:.72rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 10px;border-radius:999px}
+.lvlbadge.saffron{background:var(--saffron-soft);color:#a34406}.lvlbadge.teal{background:var(--teal-soft);color:var(--teal)}
+.lvlbadge.plum{background:var(--plum-soft);color:var(--plum)}.lvlbadge.gold{background:var(--gold-soft);color:#8a6410}
+
+/* week cards */
+.wk{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:22px;overflow:hidden;box-shadow:0 3px 14px rgba(60,40,20,.05)}
+.wk-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--saffron-soft);cursor:pointer}
+.wk-head .em{font-size:1.9rem}
+.wk-head h3{font-size:1.25rem;color:#a34406}
+.wk-head .sub{font-size:.92rem;color:var(--soft);font-weight:600}
+.wk-head .arrow{margin-left:auto;font-size:1.2rem;color:var(--saffron);transition:.2s}
+.wk.open .arrow{transform:rotate(90deg)}
+.wk.open .sub{display:none}
+.wk-body{display:none;padding:18px 22px 22px}
+.wk.open .wk-body{display:block}
+.goal{background:var(--gold-soft);border-left:4px solid var(--gold);padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:.98rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.chip{background:var(--teal-soft);color:var(--teal);font-weight:700;font-size:.85rem;padding:5px 12px;border-radius:999px}
+.wk h4{margin:14px 0 6px;color:var(--teal);font-size:1.02rem}
+.wk ol,.wk ul{padding-left:22px}
+.wk ol li,.wk ul li{margin:5px 0}
+.drills{background:#f4f9f8;border:1px dashed var(--teal);border-radius:10px;padding:10px 14px 10px 32px;margin-top:6px}
+.hw{background:var(--plum-soft);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.95rem}
+.hw b{color:var(--plum)}
+.tip{margin-top:10px;font-size:.93rem;color:var(--soft);font-style:italic}
+.taallink{display:inline-block;margin-top:12px;background:var(--teal);color:#fff;font-weight:700;padding:7px 16px;border-radius:999px;text-decoration:none;font-size:.9rem;border:none;cursor:pointer;font-family:'Nunito',sans-serif}
+
+/* video cards */
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:14px}
+.vid{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.vid .thumb{position:relative;padding-top:56.25%;background:#000;cursor:pointer}
+.vid .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+.vid .thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.6rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid .meta{padding:9px 12px}
+.vid .meta b{font-size:.9rem;line-height:1.35;display:block}
+.vid .meta span{font-size:.8rem;color:var(--soft)}
+.badge{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-top:5px}
+.badge.lesson{background:var(--teal-soft);color:var(--teal)}
+.badge.listen{background:var(--plum-soft);color:var(--plum)}
+.badge.teacher{background:var(--gold-soft);color:#8a6410}
+
+/* taal notation */
+.taal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:26px;padding:20px 22px;box-shadow:0 3px 14px rgba(60,40,20,.05)}
+.taal-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.taal-top h3{font-size:1.35rem;color:#a34406}
+.taal-top .beats{background:var(--saffron);color:#fff;font-weight:800;border-radius:999px;padding:2px 12px;font-size:.85rem}
+.taal-top .wkb{background:var(--teal-soft);color:var(--teal);font-weight:800;border-radius:999px;padding:2px 12px;font-size:.85rem}
+.playbar{margin-left:auto;display:flex;align-items:center;gap:8px}
+.pbtn{background:var(--teal);color:#fff;border:none;border-radius:999px;font-weight:800;font-size:.9rem;padding:7px 18px;cursor:pointer;font-family:'Nunito',sans-serif}
+.pbtn.playing{background:#c0392b}
+.playbar input{width:64px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem}
+.playbar label{font-size:.85rem;font-weight:700;color:var(--soft)}
+.taal .mn{color:var(--soft);font-size:.95rem;margin:4px 0 12px}
+.grid{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 4px}
+.vb{display:flex;border:2px solid var(--line);border-radius:12px;overflow:hidden}
+.cell{min-width:64px;padding:8px 6px 9px;text-align:center;border-right:1px dashed var(--line);transition:background .1s}
+.cell:last-child{border-right:none}
+.cell .num{font-size:.72rem;color:var(--soft);font-weight:700}
+.cell .bol{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:1.05rem}
+.cell .mk{font-size:.72rem;font-weight:800;margin-top:1px}
+.cell.sam{background:var(--saffron-soft)}
+.cell.sam .mk{color:var(--saffron)}
+.cell.tali .mk{color:var(--teal)}
+.cell.khali{background:#f6f3ee}
+.cell.khali .mk{color:var(--plum)}
+.cell.hit{background:var(--teal);color:#fff}
+.cell.hit .num,.cell.hit .mk,.cell.hit .bol{color:#fff}
+.legend{font-size:.85rem;color:var(--soft);margin:8px 0 2px}
+.clapline{margin-top:6px;font-weight:700;color:var(--teal);font-size:.95rem}
+.kidtip{background:var(--gold-soft);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.94rem}
+.kidtip b{color:#8a6410}
+
+/* bols table */
+.boltbl{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 3px 14px rgba(60,40,20,.05)}
+.boltbl th{background:var(--saffron-soft);color:#a34406;font-family:'Baloo 2',sans-serif;padding:11px 14px;text-align:left;font-size:.98rem}
+.boltbl td{padding:11px 14px;border-top:1px solid var(--line);font-size:.94rem;vertical-align:top}
+.boltbl td:nth-child(2){font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.1rem;color:var(--teal);white-space:nowrap}
+.boltbl .say{color:var(--soft);font-style:italic;white-space:nowrap}
+.pb{background:var(--saffron);color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:.9rem;cursor:pointer;transition:.1s}
+.pb:active{transform:scale(.88)}
+
+/* ===== simulator ===== */
+.sim{background:#1d1712;border-radius:22px;padding:26px 18px 20px;box-shadow:0 8px 30px rgba(0,0,0,.35);
+  background-image:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.05),transparent 55%),repeating-linear-gradient(95deg,rgba(255,255,255,.02) 0 3px,transparent 3px 14px)}
+.stage{display:flex;justify-content:center;align-items:flex-end;gap:4vw;flex-wrap:wrap}
+.drum{position:relative;border-radius:50%;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.drum,.zone{cursor:pointer}
+#bayan{width:min(44vw,340px);height:min(44vw,340px);
+  background:radial-gradient(circle at 50% 45%,#efe6d4 0 46%,#dcc9a8 46% 58%,#caa36a 58% 66%,#8a6a45 66% 73%,#5c4630 73% 100%);
+  box-shadow:0 14px 40px rgba(0,0,0,.55), inset 0 -6px 18px rgba(0,0,0,.25)}
+#dayan{width:min(38vw,290px);height:min(38vw,290px);
+  background:radial-gradient(circle at 50% 45%,#f0e2c8 0 44%,#dfc9a2 44% 57%,#c89a5e 57% 66%,#7d5a38 66% 74%,#4a3826 74% 100%);
+  box-shadow:0 14px 40px rgba(0,0,0,.55), inset 0 -6px 18px rgba(0,0,0,.25)}
+.zone{position:absolute;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.z-maidan{width:62%;height:62%;background:radial-gradient(circle,#f5ecd9 0 60%,#e9dcc0 100%);box-shadow:inset 0 2px 10px rgba(0,0,0,.12)}
+.z-syahi{width:30%;height:30%;background:radial-gradient(circle,#0c0c0c 0 55%,#1d1d1d 80%,#2c2c2c 100%);box-shadow:inset 0 2px 6px rgba(255,255,255,.08),0 1px 4px rgba(0,0,0,.5)}
+#bayan .z-syahi{width:26%;height:26%;transform:translate(-32%,-42%)}
+.zlabel{position:absolute;font-size:.68rem;font-weight:800;letter-spacing:.5px;color:rgba(59,47,47,.55);pointer-events:none;text-transform:uppercase}
+.drumname{position:absolute;left:50%;transform:translateX(-50%);bottom:-30px;color:#cbb79a;font-weight:800;font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,190,90,.75)}100%{box-shadow:0 0 0 26px rgba(255,190,90,0)}}
+.pulsing{animation:pulse .35s ease-out}
+.simrow{display:flex;justify-content:center;gap:18px;margin-top:44px;flex-wrap:wrap;color:#cbb79a;font-size:.85rem;font-weight:700}
+.simrow label{display:flex;align-items:center;gap:8px}
+.simrow input[type=range]{accent-color:var(--saffron)}
+.pads{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:18px}
+.pad{background:#3a2c1f;color:#f5e7cf;border:1px solid #5c4630;border-radius:12px;min-width:66px;padding:8px 10px 6px;text-align:center;cursor:pointer;transition:.08s;font-family:'Baloo 2',sans-serif}
+.pad:active,.pad.active{background:var(--saffron);border-color:var(--saffron);transform:scale(.94)}
+.pad b{display:block;font-size:1.05rem}
+.pad span{font-size:.68rem;opacity:.7;font-family:'Nunito',sans-serif;font-weight:700}
+.simnote{color:#a5937c;font-size:.82rem;text-align:center;margin-top:14px}
+
+/* checklist */
+.check{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;margin-top:26px}
+.check h3{color:#a34406;font-size:1.2rem;margin-bottom:8px}
+.check label{display:flex;gap:10px;align-items:flex-start;margin:7px 0;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--teal);width:17px;height:17px}
+.check .lvltag{font-size:.68rem;font-weight:800;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+
+footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
+@media(max-width:560px){.cell{min-width:52px}.wk-body{padding:14px}.playbar{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="drums-emoji">🥁🎵🥁</div>
+  <h1>Tabla Pro — Basics for Kids</h1>
+  <p>A 16-week beginner curriculum in 4 levels: verified video lessons in one place, taals written in English
+     with built-in play-along, a playable tabla — everything needed to teach any kid the basics of Tabla.</p>
+</header>
+
+<nav>
+  <button class="tab on" data-s="weeks">📅 Weekly Plan</button>
+  <button class="tab" data-s="taals">👏 Taals</button>
+  <button class="tab" data-s="bols">🔤 Bols</button>
+  <button class="tab" data-s="play">🥁 Play</button>
+  <button class="tab" data-s="videos">🎬 All Videos</button>
+</nav>
+
+<main>
+  <section id="weeks" class="show">
+    <div class="intro"><b>How to use:</b> one card = one week, grouped into 4 levels. Open the week you are teaching
+      and share its videos as that week's reference. Each card has the goal, concepts, a class plan, measurable
+      drills, homework and a teacher tip. Levels 1–3 (weeks 1–12) are the core "basics" course; Level 4 is the
+      optional stretch for fast learners.</div>
+    <div id="wkList"></div>
+    <div class="check" id="checklist">
+      <h3>🎓 Graduation Checklist — "Can the child…"</h3>
+      <p style="font-size:.9rem;color:var(--soft);margin-bottom:6px">Levels 1–3 ticked = knows the basics of tabla. Level 4 = bonus tier. Ticks are saved on this device.</p>
+      <div id="ckList"></div>
+    </div>
+  </section>
+
+  <section id="taals">
+    <div class="intro"><b>Reading the notation:</b> beats run left to right; each box of beats is one
+      <b>vibhag</b> (group). <b>+</b> = <b>sam</b> (beat 1 — clap), <b>👏</b> = <b>tali</b> (clap),
+      <b>〰️</b> = <b>khali</b> (wave the hand, play quiet), <b>–</b> = rest (silent beat).
+      <b>Press ▶ to hear any theka</b> — the beats light up as they play, and you can change the speed.
+      The 6 course taals come first in teaching order; below them is the full reference of classical taals.</div>
+    <div class="chips" id="taalIndex" style="margin-bottom:18px"></div>
+    <div id="taalList"></div>
+  </section>
+
+  <section id="bols">
+    <div class="intro"><b>The tabla alphabet.</b> Every rhythm is spoken before it is played (<b>padhant</b>).
+      Learn to say each bol, then to play it. <b>Press ▶ on any row to hear it.</b>
+      Dayan = right (treble) drum, Bayan = left (bass) drum.</div>
+    <table class="boltbl">
+      <thead><tr><th></th><th>Bol</th><th>Say it</th><th>Drum</th><th>How to play</th></tr></thead>
+      <tbody id="bolRows"></tbody>
+    </table>
+  </section>
+
+  <section id="play">
+    <div class="intro"><b>The practice tabla.</b> Tap the drums — each zone makes its real stroke:
+      the <b>edge (chaat)</b> plays Na, the <b>middle (maidan)</b> plays Tin, the <b>black spot (syahi)</b> plays Tun;
+      on the bass drum the head plays Ge and the syahi plays Ka. Or use the pads / keyboard keys below.
+      Perfect for kids to explore sounds before (or between) real-tabla sessions.</div>
+    <div class="sim">
+      <div class="stage">
+        <div class="drum" id="bayan">
+          <div class="zone z-maidan" data-bol="Ge"></div>
+          <div class="zone z-syahi" data-bol="Ka"></div>
+          <div class="drumname">Bayan · bass</div>
+        </div>
+        <div class="drum" id="dayan">
+          <div class="zone z-maidan" data-bol="Tin"></div>
+          <div class="zone z-syahi" data-bol="Tun"></div>
+          <div class="drumname">Dayan · treble</div>
+        </div>
+      </div>
+      <div class="pads" id="pads"></div>
+      <div class="simrow">
+        <label>🔊 Volume <input type="range" id="vol" min="0" max="100" value="80"></label>
+        <label>🎵 Dayan pitch <input type="range" id="pitch" min="260" max="370" value="300"> <span id="pitchHz">300 Hz</span></label>
+      </div>
+      <div class="simnote">Sounds are synthesised live with the Web Audio API (works offline, no downloads).
+        Want recordings of a real tabla instead? Drop files named <b>na.mp3, tin.mp3, tun.mp3, te.mp3, ge.mp3, ka.mp3…</b>
+        into a <b>samples/</b> folder next to this page — they are used automatically when present.</div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <div class="intro"><b>Every reference video in one place</b> — share this page and point to the week you are on.
+      <span class="badge lesson">lesson</span> = learn from it &nbsp;
+      <span class="badge listen">listen</span> = inspiration &nbsp;
+      <span class="badge teacher">teacher</span> = for you (tuning etc.). All links verified playable.</div>
+    <div class="vids" id="allVids"></div>
+  </section>
+</main>
+
+<footer>Tabla Pro · made for teaching first-timers · videos verified via YouTube oEmbed · edit <b>data.js</b> to customise</footer>
+
+<script src="data.js"></script>
+<script>
+/* ================= AUDIO ENGINE ================= */
+const Synth=(()=> {
+  let ac=null, master=null, comp=null;
+  let f0=300;                       // dayan fundamental
+  let vol=0.8;
+  const samples={};                 // decoded real recordings, if provided
+  let samplesTried=false;
+
+  function ctx(){
+    if(!ac){
+      ac=new (window.AudioContext||window.webkitAudioContext)();
+      comp=ac.createDynamicsCompressor();
+      comp.threshold.value=-16; comp.ratio.value=6;
+      master=ac.createGain(); master.gain.value=vol;
+      master.connect(comp).connect(ac.destination);
+      trySamples();
+    }
+    if(ac.state==='suspended') ac.resume();
+    return ac;
+  }
+  async function trySamples(){
+    if(samplesTried) return; samplesTried=true;
+    const names=['na','ta','tin','tun','te','ti','ge','ka','kat','dha','dhin'];
+    for(const n of names){
+      try{
+        const r=await fetch('samples/'+n+'.mp3');
+        if(r.ok){ samples[n]=await ac.decodeAudioData(await r.arrayBuffer()); }
+      }catch(e){ break; }           // offline / file:// → keep synthesis
+    }
+  }
+  function tone(t,f,dec,g,fEnd){
+    const a=ctx(),o=a.createOscillator(),gn=a.createGain();
+    o.frequency.setValueAtTime(f,t);
+    if(fEnd) o.frequency.exponentialRampToValueAtTime(fEnd,t+dec*.7);
+    gn.gain.setValueAtTime(g,t);
+    gn.gain.exponentialRampToValueAtTime(.0001,t+dec);
+    o.connect(gn).connect(master); o.start(t); o.stop(t+dec+.05);
+  }
+  let noiseBuf=null;
+  function noise(t,dec,g,f1,f2){
+    const a=ctx();
+    if(!noiseBuf){
+      noiseBuf=a.createBuffer(1,a.sampleRate*0.5,a.sampleRate);
+      const d=noiseBuf.getChannelData(0);
+      for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+    }
+    const s=a.createBufferSource(); s.buffer=noiseBuf;
+    const bp=a.createBiquadFilter(); bp.type='bandpass';
+    bp.frequency.value=(f1+f2)/2; bp.Q.value=bp.frequency.value/(f2-f1);
+    const gn=a.createGain();
+    gn.gain.setValueAtTime(g,t);
+    gn.gain.exponentialRampToValueAtTime(.0001,t+dec);
+    s.connect(bp).connect(gn).connect(master); s.start(t); s.stop(t+dec+.05);
+  }
+  /* ------- bol recipes (modal synthesis + noise transients) ------- */
+  const R={
+    na (t,v){ noise(t,.012,.16*v,3000,8000);
+              tone(t,2*f0,.55,.5*v); tone(t,3*f0,.35,.28*v); tone(t,4*f0,.22,.12*v); tone(t,f0,.3,.07*v); },
+    ta (t,v){ noise(t,.012,.2*v,3500,9000);
+              tone(t,2*f0,.42,.5*v); tone(t,3*f0,.26,.3*v); tone(t,4*f0,.16,.14*v); },
+    tin(t,v){ noise(t,.008,.06*v,3000,7000);
+              tone(t,2*f0,.3,.3*v); tone(t,3*f0,.12,.1*v); },
+    tun(t,v){ noise(t,.008,.05*v,1500,4000);
+              tone(t,f0,.85,.85*v); tone(t,2*f0,.45,.4*v); tone(t,3*f0,.2,.15*v); },
+    te (t,v){ noise(t,.06,.5*v,1500,5000); tone(t,420,.045,.22*v); },
+    ti (t,v){ noise(t,.045,.32*v,1800,5500); tone(t,460,.04,.15*v); },
+    ge (t,v){ tone(t,155,.5,.95*v,72); noise(t,.02,.25*v,80,350); },
+    ka (t,v){ noise(t,.05,.55*v,300,2500); tone(t,150,.035,.2*v); },
+    kat(t,v){ noise(t,.06,.7*v,200,3200); tone(t,130,.04,.3*v); },
+    dha(t,v){ R.na(t,v); R.ge(t,v); },
+    dhin(t,v){ R.tin(t,v); R.ge(t,v); }
+  };
+  const alias={tu:'tun',dhi:'dhin',ra:'ti',ki:'ka',ke:'ka',ge:'ge',ga:'ge',din:'dhin',di:'tin',ne:'na'};
+  function stroke(name,t,v){
+    const n=alias[name]||name;
+    if(samples[n]){
+      const a=ctx(),s=a.createBufferSource(),g=a.createGain();
+      s.buffer=samples[n]; g.gain.value=v;
+      s.connect(g).connect(master); s.start(t); return;
+    }
+    (R[n]||R.ta)(t,v);
+  }
+  /* play a bol inside one beat. '–' is a rest; CamelCase bols (DhaGe,
+     TiRaKiTa, KiTe, GaDi…) split into sub-strokes spread across the beat. */
+  function play(bol,when=0,beatDur=0.5){
+    if(bol==='–'||bol==='-'||bol==='—') return;
+    const a=ctx(), t=a.currentTime+when+0.02;
+    const toks=bol.match(/[A-Z][a-z]*/g);
+    if(toks && toks.length>1){
+      const step=beatDur/toks.length;
+      toks.forEach((tk,j)=>stroke(tk.toLowerCase(),t+j*step,j?0.75:0.9));
+      return;
+    }
+    stroke(bol.toLowerCase(),t,1);
+  }
+  return {
+    play,
+    now:()=>ctx().currentTime,
+    setVol:v=>{vol=v; if(master) master.gain.value=v;},
+    setPitch:h=>{f0=h;}
+  };
+})();
+
+/* ================= UI helpers ================= */
+const $=q=>document.querySelector(q);
+function vidCard(key){
+  const v=VIDEOS[key]; if(!v) return '';
+  return `<div class="vid">
+    <div class="thumb" data-id="${v.id}" title="Play: ${v.t}">
+      <img loading="lazy" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.t}">
+      <div class="play">▶</div>
+    </div>
+    <div class="meta"><b>${v.t}</b><span>${v.by}</span><br>
+      <span class="badge ${v.tag}">${v.tag}</span>
+      · <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" style="font-size:.78rem">open ↗</a>
+    </div></div>`;
+}
+document.addEventListener('click',e=>{
+  const th=e.target.closest('.thumb'); if(!th) return;
+  /* YouTube refuses embeds that arrive without a referrer ("Error 153").
+     Opened from disk (file://) there is no referrer to send, so go straight
+     to YouTube in a new tab; once hosted over http(s) we embed inline. */
+  if(location.protocol==='file:'){
+    window.open('https://www.youtube.com/watch?v='+th.dataset.id,'_blank','noopener');
+    return;
+  }
+  th.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${th.dataset.id}?autoplay=1&rel=0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+});
+
+/* tabs */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('section').forEach(x=>x.classList.remove('show'));
+  b.classList.add('on'); $('#'+b.dataset.s).classList.add('show');
+  window.scrollTo({top:0});
+});
+
+/* ================= WEEKS (grouped by level) ================= */
+const lvlOf=n=>LEVELS.find(l=>l.n===n);
+$('#wkList').innerHTML=LEVELS.map(L=>{
+  const wks=WEEKS.filter(w=>w.level===L.n);
+  return `<div class="lvl ${L.color}">
+      <span class="lvlbadge ${L.color}">Level ${L.n}</span>
+      <h2>${L.name}</h2><span class="desc">Weeks ${L.weeks[0]}–${L.weeks[1]} · ${L.desc}</span>
+    </div>`+
+    wks.map(w=>`
+  <div class="wk" id="week${w.n}">
+    <div class="wk-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="em">${w.emoji}</div>
+      <div><h3>Week ${w.n} — ${w.title}</h3><div class="sub">${w.goal}</div></div>
+      <div class="arrow">▶</div>
+    </div>
+    <div class="wk-body">
+      <div class="goal">🎯 <b>Goal:</b> ${w.goal}</div>
+      <div class="chips">${w.learn.map(l=>`<span class="chip">${l}</span>`).join('')}</div>
+      <h4>🧑‍🏫 Class plan</h4>
+      <ol>${w.plan.map(p=>`<li>${p}</li>`).join('')}</ol>
+      <h4>💪 Drills of the week</h4>
+      <ul class="drills">${w.drills.map(d=>`<li>${d}</li>`).join('')}</ul>
+      <div class="hw">📝 <b>Homework:</b> ${w.homework}</div>
+      <div class="tip">💡 ${w.tip}</div>
+      ${w.taal?`<button class="taallink" onclick="goTaal('${w.taal}')">👏 ${TAALS.find(t=>t.id===w.taal).name} notation & play-along</button>`:''}
+      ${w.horizon?`<div class="kidtip" style="margin-top:12px">🔭 <b>Taal horizon:</b> ${w.horizon.text}
+        ${w.horizon.taals.map(id=>{const t=TAALS.find(x=>x.id===id);return `<button class="taallink" style="margin:6px 6px 0 0" onclick="goTaal('${id}')">${t.name} · ${t.beats} beats</button>`;}).join('')}</div>`:''}
+      <h4>🎬 This week's videos</h4>
+      <div class="vids">${w.videos.map(vidCard).join('')}</div>
+    </div>
+  </div>`).join('');
+}).join('');
+document.querySelector('.wk').classList.add('open');
+
+function goTaal(id){
+  document.querySelector('[data-s="taals"]').click();
+  setTimeout(()=>document.getElementById('taal-'+id)?.scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+
+/* ================= TAALS + PLAY-ALONG ================= */
+const MK={'+':['sam','+ SAM'],'C':['tali','👏 CLAP'],'O':['khali','〰️ WAVE'],'.':['','']};
+function taalCard(t){
+  let n=0;
+  const grid=t.rows.map(r=>`<div class="vb">${r.bols.map((b,i)=>{
+    n++; const[cls,lbl]=MK[r.marks[i]];
+    return `<div class="cell ${cls}" data-cell="${t.id}-${n-1}"><div class="num">${n}</div><div class="bol">${b}</div><div class="mk">${lbl}</div></div>`;
+  }).join('')}</div>`).join('');
+  return `<div class="taal" id="taal-${t.id}">
+    <div class="taal-top"><h3>${t.name}</h3>
+      <span class="beats">${t.beats} beats · ${t.vibhag}</span>
+      <span class="wkb">${t.week?`Week ${t.week}`:t.family}</span>
+      <div class="playbar">
+        <button class="pbtn" data-taal="${t.id}">▶ Play</button>
+        <label>BPM <input type="number" id="bpm-${t.id}" value="${t.bpm}" min="30" max="220"></label>
+      </div></div>
+    <div class="mn">${t.mnemonic}</div>
+    <div class="grid">${grid}</div>
+    <div class="clapline">Hands: ${t.clap}</div>
+    <div class="kidtip"><b>Kid tip:</b> ${t.kidTip}</div>
+    <h4 style="margin:14px 0 4px;color:var(--teal)">🎬 Videos for this taal</h4>
+    <div class="vids">${t.videos.map(vidCard).join('')}</div>
+  </div>`;
+}
+const courseTaals=TAALS.filter(t=>t.week).sort((a,b)=>a.week-b.week);
+const refTaals=TAALS.filter(t=>!t.week);
+const families=[...new Set(refTaals.map(t=>t.family))];
+$('#taalList').innerHTML=
+  `<div class="lvl teal"><span class="lvlbadge teal">Course</span><h2>Taught in the 16 weeks</h2></div>`+
+  courseTaals.map(taalCard).join('')+
+  `<div class="lvl gold"><span class="lvlbadge gold">Reference</span><h2>The full taal reference</h2>
+     <span class="desc">Every classical taal a student will meet for years to come — all playable.</span></div>`+
+  families.map(f=>
+    `<div class="lvl plum"><h2 style="font-size:1.05rem">${f}</h2></div>`+
+    refTaals.filter(t=>t.family===f).map(taalCard).join('')
+  ).join('');
+$('#taalIndex').innerHTML=[...courseTaals,...refTaals].map(t=>
+  `<span class="chip" style="cursor:pointer" onclick="goTaal('${t.id}')">${t.name} · ${t.beats}</span>`).join('');
+
+let player=null;
+function stopPlayer(){
+  if(!player) return;
+  clearTimeout(player.timer);
+  document.querySelectorAll('.cell.hit').forEach(c=>c.classList.remove('hit'));
+  player.btn.textContent='▶ Play'; player.btn.classList.remove('playing');
+  player=null;
+}
+document.querySelectorAll('.pbtn').forEach(btn=>btn.onclick=()=>{
+  const id=btn.dataset.taal;
+  if(player && player.id===id){ stopPlayer(); return; }
+  stopPlayer();
+  const t=TAALS.find(x=>x.id===id);
+  const beats=t.rows.flatMap(r=>r.bols);
+  const bpm=Math.min(220,Math.max(40,+document.getElementById('bpm-'+id).value||t.bpm));
+  const period=60/bpm;
+  const start=Synth.now()+0.15;
+  let i=0;
+  player={id,btn,timer:null};
+  btn.textContent='⏹ Stop'; btn.classList.add('playing');
+  (function step(){
+    const n=i%beats.length;
+    Synth.play(beats[n],0,period);
+    document.querySelectorAll(`[data-cell^="${id}-"]`).forEach(c=>c.classList.remove('hit'));
+    document.querySelector(`[data-cell="${id}-${n}"]`)?.classList.add('hit');
+    i++;
+    const wait=(start+i*period-Synth.now())*1000;
+    player.timer=setTimeout(step,Math.max(0,wait));
+  })();
+});
+
+/* ================= BOLS (playable) ================= */
+$('#bolRows').innerHTML=BOLS.map(b=>
+  `<tr><td><button class="pb" data-syn="${b.syn}" title="Hear ${b.bol}">▶</button></td>
+   <td>${b.bol}</td><td class="say">"${b.say}"</td><td>${b.drum}</td><td>${b.how}</td></tr>`).join('');
+document.querySelectorAll('.pb').forEach(p=>p.onclick=()=>Synth.play(p.dataset.syn,0,0.5));
+
+/* ================= SIMULATOR ================= */
+const PADS=[
+  {b:'Na',k:'J'},{b:'Ta',k:'H'},{b:'Tin',k:'K'},{b:'Tun',k:'L'},{b:'Te',k:'U'},{b:'Ti',k:'I'},
+  {b:'Ge',k:'S'},{b:'Ka',k:'A'},{b:'Kat',k:'W'},
+  {b:'Dha',k:'F'},{b:'Dhin',k:'G'},{b:'TiRaKiTa',k:'T'}
+];
+$('#pads').innerHTML=PADS.map(p=>
+  `<div class="pad" data-bol="${p.b}" id="pad-${p.b}"><b>${p.b}</b><span>key ${p.k}</span></div>`).join('');
+
+function flash(el){ if(!el) return; el.classList.remove('pulsing'); void el.offsetWidth; el.classList.add('pulsing'); }
+function hit(bol){
+  Synth.play(bol,0,0.4);
+  const pad=document.getElementById('pad-'+bol);
+  if(pad){ pad.classList.add('active'); setTimeout(()=>pad.classList.remove('active'),120); }
+  const zoneMap={Na:'#dayan',Ta:'#dayan',Tin:'#dayan .z-maidan',Tun:'#dayan .z-syahi',Te:'#dayan .z-syahi',Ti:'#dayan .z-syahi',
+                 Ge:'#bayan .z-maidan',Ka:'#bayan .z-syahi',Kat:'#bayan',Dha:'#dayan',Dhin:'#dayan .z-maidan',TiRaKiTa:'#dayan'};
+  flash(document.querySelector(zoneMap[bol]));
+  if(bol==='Dha'||bol==='Dhin') flash(document.querySelector('#bayan .z-maidan'));
+}
+/* drum zones: chaat (outer drum surface) = Na on dayan / Kat on bayan */
+document.querySelectorAll('.zone').forEach(z=>z.addEventListener('pointerdown',e=>{e.stopPropagation();hit(z.dataset.bol);}));
+$('#dayan').addEventListener('pointerdown',()=>hit('Na'));
+$('#bayan').addEventListener('pointerdown',()=>hit('Kat'));
+document.querySelectorAll('.pad').forEach(p=>p.addEventListener('pointerdown',()=>hit(p.dataset.bol)));
+
+const keyMap=Object.fromEntries(PADS.map(p=>[p.k.toLowerCase(),p.b]));
+document.addEventListener('keydown',e=>{
+  if(e.repeat||e.target.tagName==='INPUT') return;
+  const b=keyMap[e.key.toLowerCase()];
+  if(b && $('#play').classList.contains('show')) hit(b);
+});
+
+$('#vol').oninput=e=>Synth.setVol(e.target.value/100);
+$('#pitch').oninput=e=>{Synth.setPitch(+e.target.value);$('#pitchHz').textContent=e.target.value+' Hz';};
+
+/* ================= ALL VIDEOS ================= */
+const order={lesson:0,listen:1,teacher:2};
+$('#allVids').innerHTML=Object.keys(VIDEOS)
+  .sort((a,b)=>order[VIDEOS[a].tag]-order[VIDEOS[b].tag])
+  .map(vidCard).join('');
+
+/* ================= CHECKLIST ================= */
+const lvlColors={1:'saffron',2:'teal',3:'plum',4:'gold'};
+$('#ckList').innerHTML=CHECKLIST.map((c,i)=>
+  `<label><input type="checkbox" data-i="${i}"> ${c.text}
+     <span class="lvltag lvlbadge ${lvlColors[c.level]}">L${c.level}</span></label>`).join('');
+const saved=JSON.parse(localStorage.getItem('tablaCk')||'[]');
+document.querySelectorAll('#ckList input').forEach(cb=>{
+  cb.checked=!!saved[cb.dataset.i];
+  cb.onchange=()=>{saved[cb.dataset.i]=cb.checked;localStorage.setItem('tablaCk',JSON.stringify(saved));};
+});
+</script>
+</body>
+</html>
