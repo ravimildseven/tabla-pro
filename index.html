@@ -166,15 +166,18 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
 <header>
   <div class="drums-emoji">🥁🎵🥁</div>
   <h1>Tabla Pro — Basics for Kids</h1>
-  <p>A 16-week beginner curriculum in 4 levels: verified video lessons in one place, taals written in English
-     with built-in play-along, a playable tabla — everything needed to teach any kid the basics of Tabla.</p>
+  <p>A 20-week beginner curriculum in 5 levels, built the traditional way: bols → bol-groups → taals.
+     Verified video lessons in one place, everything notated in English with built-in play-along,
+     and a playable tabla — all you need to teach any kid the basics.</p>
 </header>
 
 <nav>
   <button class="tab on" data-s="weeks">📅 Weekly Plan</button>
-  <button class="tab" data-s="taals">👏 Taals</button>
   <button class="tab" data-s="bols">🔤 Bols</button>
+  <button class="tab" data-s="varnas">🗣️ Bol-Groups</button>
+  <button class="tab" data-s="taals">👏 Taals</button>
   <button class="tab" data-s="play">🥁 Play</button>
+  <button class="tab" data-s="teach">📖 Teach</button>
   <button class="tab" data-s="videos">🎬 All Videos</button>
 </nav>
 
@@ -210,6 +213,22 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
       <thead><tr><th></th><th>Bol</th><th>Say it</th><th>Drum</th><th>How to play</th></tr></thead>
       <tbody id="bolRows"></tbody>
     </table>
+  </section>
+
+  <section id="varnas">
+    <div class="intro"><b>Bols are letters. Bol-groups (varnas) are words. Taals are sentences.</b>
+      This is the rung between single strokes and full thekas — drill these little groups until the hands
+      own them, and a taal later assembles from pieces the child already plays instead of being memorised
+      beat by beat. <b>Press ▶ to hear any group</b>; the <b>builds into</b> links show exactly where that
+      group reappears inside a real taal.</div>
+    <div id="varnaList"></div>
+  </section>
+
+  <section id="teach">
+    <div class="intro"><b>The teacher's guide.</b> The things a curriculum of videos and notation does not
+      cover, but that decide whether a child actually progresses: the daily practice shape, what to do when
+      something sounds wrong, how to count a cycle on the hand, and what to tell parents.</div>
+    <div id="guideList"></div>
   </section>
 
   <section id="play">
@@ -277,11 +296,19 @@ const Synth=(()=> {
   async function trySamples(){
     if(samplesTried) return; samplesTried=true;
     const names=['na','ta','tin','tun','te','ti','ge','ka','kat','dha','dhin'];
-    for(const n of names){
+    /* Probe one file first: a missing samples/ folder is the normal case, and
+       a 404 resolves (ok:false) rather than throwing — without this guard we
+       would fire a request per bol on every page. */
+    try{
+      const probe=await fetch('samples/na.mp3');
+      if(!probe.ok) return;                       // no samples → synthesis
+      samples.na=await ac.decodeAudioData(await probe.arrayBuffer());
+    }catch(e){ return; }                          // offline / file://
+    for(const n of names.slice(1)){
       try{
         const r=await fetch('samples/'+n+'.mp3');
-        if(r.ok){ samples[n]=await ac.decodeAudioData(await r.arrayBuffer()); }
-      }catch(e){ break; }           // offline / file:// → keep synthesis
+        if(r.ok) samples[n]=await ac.decodeAudioData(await r.arrayBuffer());
+      }catch(e){ /* keep synthesis for this bol */ }
     }
   }
   function tone(t,f,dec,g,fEnd){
@@ -415,6 +442,9 @@ $('#wkList').innerHTML=LEVELS.map(L=>{
       <ul class="drills">${w.drills.map(d=>`<li>${d}</li>`).join('')}</ul>
       <div class="hw">📝 <b>Homework:</b> ${w.homework}</div>
       <div class="tip">💡 ${w.tip}</div>
+      ${w.varnas?`<div class="kidtip" style="margin-top:12px;background:var(--plum-soft)">🗣️ <b style="color:var(--plum)">Bol-groups for this week</b> — drill these until the hands own them:
+        ${w.varnas.map(id=>{const v=VARNAS.flatMap(g=>g.items).find(x=>x.id===id);
+          return v?`<button class="taallink" style="margin:6px 6px 0 0;background:var(--plum)" onclick="goVarna('${id}')">${v.name}</button>`:'';}).join('')}</div>`:''}
       ${w.taal?`<button class="taallink" onclick="goTaal('${w.taal}')">👏 ${TAALS.find(t=>t.id===w.taal).name} notation & play-along</button>`:''}
       ${w.horizon?`<div class="kidtip" style="margin-top:12px">🔭 <b>Taal horizon:</b> ${w.horizon.text}
         ${w.horizon.taals.map(id=>{const t=TAALS.find(x=>x.id===id);return `<button class="taallink" style="margin:6px 6px 0 0" onclick="goTaal('${id}')">${t.name} · ${t.beats} beats</button>`;}).join('')}</div>`:''}
@@ -480,7 +510,7 @@ function stopPlayer(){
 document.querySelectorAll('.pbtn').forEach(btn=>btn.onclick=()=>{
   const id=btn.dataset.taal;
   if(player && player.id===id){ stopPlayer(); return; }
-  stopPlayer();
+  stopPlayer(); if(typeof stopVarna==='function') stopVarna();
   const t=TAALS.find(x=>x.id===id);
   const beats=t.rows.flatMap(r=>r.bols);
   const bpm=Math.min(220,Math.max(40,+document.getElementById('bpm-'+id).value||t.bpm));
@@ -499,6 +529,72 @@ document.querySelectorAll('.pbtn').forEach(btn=>btn.onclick=()=>{
     player.timer=setTimeout(step,Math.max(0,wait));
   })();
 });
+
+/* ================= VARNAS (bol-groups) ================= */
+$('#varnaList').innerHTML=VARNAS.map(g=>
+  `<div class="lvl plum"><span class="lvlbadge plum">${g.jaati}</span><h2>${g.group}</h2></div>
+   <div class="intro" style="background:var(--plum-soft);margin-bottom:16px">${g.intro}</div>`+
+  g.items.map(v=>`
+   <div class="taal" id="varna-${v.id}">
+     <div class="taal-top"><h3>${v.name}</h3>
+       <span class="beats">${v.bols.length} strokes</span>
+       <div class="playbar">
+         <button class="vbtn" data-varna="${v.id}">▶ Play</button>
+         <label>BPM <input type="number" id="vbpm-${v.id}" value="${v.bpm}" min="30" max="200"></label>
+       </div></div>
+     <div class="grid">${v.bols.map((b,i)=>
+        `<div class="vb"><div class="cell ${i===0?'sam':''}" data-cell="${v.id}-${i}">
+           <div class="num">${i+1}</div><div class="bol">${b}</div></div></div>`).join('')}</div>
+     <div class="mn"><b style="color:var(--teal)">Trains:</b> ${v.trains}</div>
+     <div class="mn"><b style="color:var(--teal)">How:</b> ${v.how}</div>
+     <div class="kidtip"><b>Kid tip:</b> ${v.tip}</div>
+     ${v.buildsInto.length?`<div style="margin-top:12px"><b style="color:var(--plum)">🔗 Builds into:</b>
+        ${v.buildsInto.map(b=>{const t=TAALS.find(x=>x.id===b.taal);
+          return `<button class="taallink" style="margin:6px 6px 0 0;background:var(--plum)"
+            onclick="goTaal('${b.taal}')">${t?t.name:b.taal} — ${b.what}</button>`;}).join('')}</div>`:''}
+   </div>`).join('')
+).join('');
+
+let vplayer=null;
+function stopVarna(){
+  if(!vplayer) return;
+  clearTimeout(vplayer.timer);
+  document.querySelectorAll('#varnaList .cell.hit').forEach(c=>c.classList.remove('hit'));
+  vplayer.btn.textContent='▶ Play'; vplayer.btn.classList.remove('playing');
+  vplayer=null;
+}
+document.querySelectorAll('.vbtn').forEach(btn=>btn.onclick=()=>{
+  const id=btn.dataset.varna;
+  if(vplayer && vplayer.id===id){ stopVarna(); return; }
+  stopVarna(); stopPlayer();
+  const v=VARNAS.flatMap(g=>g.items).find(x=>x.id===id);
+  const bpm=Math.min(200,Math.max(30,+document.getElementById('vbpm-'+id).value||v.bpm));
+  const period=60/bpm, start=Synth.now()+0.15;
+  let i=0;
+  vplayer={id,btn,timer:null};
+  btn.textContent='⏹ Stop'; btn.classList.add('playing');
+  (function step(){
+    const n=i%v.bols.length;
+    Synth.play(v.bols[n],0,period);
+    document.querySelectorAll(`[data-cell^="${id}-"]`).forEach(c=>c.classList.remove('hit'));
+    document.querySelector(`[data-cell="${id}-${n}"]`)?.classList.add('hit');
+    i++;
+    vplayer.timer=setTimeout(step,Math.max(0,(start+i*period-Synth.now())*1000));
+  })();
+});
+function goVarna(id){
+  document.querySelector('[data-s="varnas"]').click();
+  setTimeout(()=>document.getElementById('varna-'+id)?.scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+
+/* ================= TEACHER'S GUIDE ================= */
+$('#guideList').innerHTML=GUIDE.map(g=>`
+  <div class="taal" id="guide-${g.id}">
+    <div class="taal-top"><h3>${g.icon} ${g.title}</h3></div>
+    <div class="mn">${g.intro}</div>
+    ${g.items.map(it=>`<div style="margin-top:12px">
+        <b style="color:var(--teal);font-family:'Baloo 2',sans-serif">${it.h}</b><br>${it.p}</div>`).join('')}
+  </div>`).join('');
 
 /* ================= BOLS (playable) ================= */
 $('#bolRows').innerHTML=BOLS.map(b=>
@@ -548,7 +644,7 @@ $('#allVids').innerHTML=Object.keys(VIDEOS)
   .map(vidCard).join('');
 
 /* ================= CHECKLIST ================= */
-const lvlColors={1:'saffron',2:'teal',3:'plum',4:'gold'};
+const lvlColors={1:'saffron',2:'plum',3:'teal',4:'saffron',5:'gold'};
 $('#ckList').innerHTML=CHECKLIST.map((c,i)=>
   `<label><input type="checkbox" data-i="${i}"> ${c.text}
      <span class="lvltag lvlbadge ${lvlColors[c.level]}">L${c.level}</span></label>`).join('');
