@@ -22,11 +22,18 @@ memorised beat by beat; it is assembled from small groups the hands already own.
 - **👏 Taals** — a complete 15-taal reference, all fully notated in English with beat
   numbers, vibhag boxes, sam/tali/khali (clap/wave) marks, rests, and a **▶ play-along**
   on every taal (theka plays aloud at any BPM with the current beat highlighted).
+  Each taal also plays a **🎻 lehra** — the one-cycle melodic loop a sarangi or harmonium
+  player provides, over a soft drone, so the student practises knowing where *sam* is
+  rather than just where the beat is. Modes: theka, lehra only, or both.
   The 6 course taals (Teentaal, Keherwa, Dadra, Jhaptaal, Rupak, Ektaal) come first in
   teaching order; the reference adds Tilwada, Punjabi/Sitarkhani, Deepchandi, Jhumra,
   Dhamar, Chautal, Ada Chautal, Sultaal and Tivra, grouped by family (vilambit khyal,
   thumri, pakhawaj/dhrupad). Week cards link to related reference taals via
   "🔭 Taal horizon" buttons.
+- **📈 Practice Log** — one tap logs a session; tracks current and best streak, days
+  practised and total hours, with a 12-week heatmap and milestone badges (3 days → 100
+  days). Practising yesterday but not yet today keeps the streak alive, so a day is not
+  "lost" until it actually ends. Stored in `localStorage` only — nothing is uploaded.
 - **🎓 Graduation checklist** — 17 level-tagged tick boxes (saved in the browser);
   Levels 1–4 ticked = knows the basics.
 - **🔤 Bols** — the tabla alphabet reference; press ▶ on any row to hear the stroke.

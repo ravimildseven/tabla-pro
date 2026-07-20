@@ -414,6 +414,24 @@ const TAALS = [
   }
 ];
 
+/* ============ LEHRA / NAGMA ============
+   A lehra is the short melodic loop (traditionally sarangi or harmonium) that
+   repeats exactly one cycle of the taal, so a tabla player always knows where
+   sam is. This is how tabla is actually practised — not to a metronome.
+
+   Numbers are semitones above the tonic Sa, one per beat. The scale is
+   Bhupali (S R G P D = 0 2 4 7 9), pentatonic so nothing can clash.
+   Beat 1 is high Sa (12) so sam is unmistakable. Taals not listed here get a
+   generated line of the same character.                                      */
+const LEHRAS = {
+  teentaal: [12,9,7,9, 12,14,12,9, 7,4,2,4, 7,9,7,9],
+  keherwa:  [12,9,7,9, 7,4,7,9],
+  dadra:    [12,9,7, 4,7,9],
+  jhaptaal: [12,9, 7,9,12, 9,7, 4,7,9],
+  rupak:    [12,14,12, 9,7, 4,9],
+  ektaal:   [12,9, 7,9, 12,14, 12,9, 7,4, 7,9]
+};
+
 /* ============ LEVELS ============ */
 const LEVELS = [
   { n: 1, name: 'Hands & Sounds',            weeks: [1,4],   color: 'saffron', desc: 'Meet the instrument and learn every basic stroke, one hand at a time.' },
@@ -782,7 +800,9 @@ const GUIDE = [
       { h: '2 · Bol-groups (5 min)', p: 'Two or three varnas from the current week, spoken aloud while played. This is where technique is actually built.' },
       { h: '3 · Theka (5 min)', p: 'The current taal at one steady speed with the play-along. Ten clean cycles, not twenty messy ones.' },
       { h: '4 · Kaida / composition (5 min)', p: 'From Week 11 onward. Theme, then one variation, then the khali version.' },
-      { h: '5 · Free play (2 min)', p: 'Anything they like. End on enjoyment so they come back tomorrow.' }
+      { h: '5 · Free play (2 min)', p: 'Anything they like. End on enjoyment so they come back tomorrow.' },
+      { h: 'Practise to a lehra, not a metronome', p: 'In the Taals tab set the dropdown to "Lehra only" — a melodic loop one cycle long, exactly what a sarangi or harmonium player provides. A metronome tells you where the beat is; a lehra tells you where sam is, which is the thing that actually matters.' },
+      { h: 'Log it', p: 'Tap the button in the Practice Log tab afterwards. The streak, not the hour count, is what keeps a child coming back.' }
     ]
   },
   {

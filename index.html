@@ -90,6 +90,7 @@ section{display:none}section.show{display:block}
 .pbtn{background:var(--teal);color:#fff;border:none;border-radius:999px;font-weight:800;font-size:.9rem;padding:7px 18px;cursor:pointer;font-family:'Nunito',sans-serif}
 .pbtn.playing{background:#c0392b}
 .playbar input{width:64px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem}
+.playbar select{padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer}
 .playbar label{font-size:.85rem;font-weight:700;color:var(--soft)}
 .taal .mn{color:var(--soft);font-size:.95rem;margin:4px 0 12px}
 .grid{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 4px}
@@ -150,6 +151,26 @@ section{display:none}section.show{display:block}
 .pad span{font-size:.68rem;opacity:.7;font-family:'Nunito',sans-serif;font-weight:700}
 .simnote{color:#a5937c;font-size:.82rem;text-align:center;margin-top:14px}
 
+/* practice log */
+.logcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:22px;box-shadow:0 3px 14px rgba(60,40,20,.05)}
+.logcard h3{color:#a34406;font-size:1.15rem;margin-bottom:10px}
+.donebtn{background:var(--teal);color:#fff;border:none;border-radius:999px;padding:13px 26px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Baloo 2',sans-serif;transition:.15s}
+.donebtn:hover{filter:brightness(1.08)}
+.donebtn.done{background:var(--gold-soft);color:#8a6410;border:2px solid var(--gold)}
+.minsel{margin-left:10px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+.stat{flex:1;min-width:110px;background:var(--saffron-soft);border-radius:14px;padding:12px 14px;text-align:center}
+.stat b{display:block;font-family:'Baloo 2',sans-serif;font-size:1.8rem;color:#a34406;line-height:1.1}
+.stat span{font-size:.8rem;color:var(--soft);font-weight:700}
+.heat{display:grid;grid-template-rows:repeat(7,1fr);grid-auto-flow:column;gap:4px;overflow-x:auto;padding-bottom:4px}
+.heat i,.heatkey i{width:15px;height:15px;border-radius:4px;display:block}
+.lv0{background:#efe3d3}.lv1{background:#a9d6cd}.lv2{background:#3ea393}.lv3{background:var(--teal)}
+.heat i.today{outline:2px solid var(--saffron);outline-offset:1px}
+.heatkey{display:flex;align-items:center;gap:5px;margin-top:10px;font-size:.78rem;color:var(--soft);font-weight:700}
+.badges{display:flex;flex-wrap:wrap;gap:10px}
+.bdg{border-radius:14px;padding:10px 14px;font-weight:800;font-size:.88rem;border:2px dashed var(--line);color:var(--soft);background:#faf6f0}
+.bdg.got{border:2px solid var(--gold);background:var(--gold-soft);color:#8a6410}
+
 /* checklist */
 .check{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;margin-top:26px}
 .check h3{color:#a34406;font-size:1.2rem;margin-bottom:8px}
@@ -177,6 +198,7 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
   <button class="tab" data-s="varnas">🗣️ Bol-Groups</button>
   <button class="tab" data-s="taals">👏 Taals</button>
   <button class="tab" data-s="play">🥁 Play</button>
+  <button class="tab" data-s="progress">📈 Practice Log</button>
   <button class="tab" data-s="teach">📖 Teach</button>
   <button class="tab" data-s="videos">🎬 All Videos</button>
 </nav>
@@ -200,6 +222,9 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
       <b>vibhag</b> (group). <b>+</b> = <b>sam</b> (beat 1 — clap), <b>👏</b> = <b>tali</b> (clap),
       <b>〰️</b> = <b>khali</b> (wave the hand, play quiet), <b>–</b> = rest (silent beat).
       <b>Press ▶ to hear any theka</b> — the beats light up as they play, and you can change the speed.
+      Switch the dropdown to <b>🎻 Lehra only</b> and the tabla drops out, leaving the melodic loop a real
+      accompanist plays to: one cycle of melody, over and over, so the student always knows where sam is.
+      That is how tabla is actually practised — to a lehra, not a metronome.
       The 6 course taals come first in teaching order; below them is the full reference of classical taals.</div>
     <div class="chips" id="taalIndex" style="margin-bottom:18px"></div>
     <div id="taalList"></div>
@@ -222,6 +247,31 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
       beat by beat. <b>Press ▶ to hear any group</b>; the <b>builds into</b> links show exactly where that
       group reappears inside a real taal.</div>
     <div id="varnaList"></div>
+  </section>
+
+  <section id="progress">
+    <div class="intro"><b>The streak is the lesson.</b> Ten minutes a day beats an hour on Sunday —
+      little hands build habits, not stamina. Tap the button after each practice and watch the squares
+      fill up. Saved on this device only; nothing is uploaded anywhere.</div>
+
+    <div class="logcard">
+      <div id="todayBox"></div>
+      <div class="stats" id="statBox"></div>
+    </div>
+
+    <div class="logcard">
+      <h3>Last 12 weeks</h3>
+      <div class="heat" id="heat"></div>
+      <div class="heatkey"><span>less</span>
+        <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i>
+        <span>more</span></div>
+      <p class="mn" id="heatNote"></p>
+    </div>
+
+    <div class="logcard">
+      <h3>🏅 Milestones</h3>
+      <div id="badges" class="badges"></div>
+    </div>
   </section>
 
   <section id="teach">
@@ -376,8 +426,49 @@ const Synth=(()=> {
     }
     stroke(bol.toLowerCase(),t,1);
   }
+  /* ---------- lehra: harmonium-style reed + tanpura-ish drone ----------
+     The lehra sits an octave below the dayan so the melody stays in a warm
+     mid range while still being tuned to the same Sa the drum is tuned to. */
+  function reed(t,semi,dur,g=0.16){
+    const a=ctx(), f=(f0/2)*Math.pow(2,semi/12);
+    const lp=a.createBiquadFilter(); lp.type='lowpass';
+    lp.frequency.value=1800; lp.Q.value=0.6;
+    const gn=a.createGain();
+    gn.gain.setValueAtTime(0.0001,t);
+    gn.gain.linearRampToValueAtTime(g,t+0.035);          // soft reed attack
+    gn.gain.setValueAtTime(g,t+dur*0.7);
+    gn.gain.exponentialRampToValueAtTime(0.0001,t+dur*0.98);
+    [0,-7,7].forEach(cents=>{                            // 3 detuned reeds
+      const o=a.createOscillator();
+      o.type='sawtooth';
+      o.frequency.value=f*Math.pow(2,cents/1200);
+      o.connect(lp); o.start(t); o.stop(t+dur);
+    });
+    lp.connect(gn).connect(master);
+  }
+  let droneNodes=null;
+  function drone(on){
+    const a=ctx();
+    if(!on){
+      if(droneNodes){ droneNodes.g.gain.setTargetAtTime(0.0001,a.currentTime,0.15);
+        const d=droneNodes; setTimeout(()=>d.osc.forEach(o=>{try{o.stop();}catch(e){}}),600);
+        droneNodes=null; }
+      return;
+    }
+    if(droneNodes) return;
+    const lp=a.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=900;
+    const g=a.createGain(); g.gain.setValueAtTime(0.0001,a.currentTime);
+    g.gain.linearRampToValueAtTime(0.05,a.currentTime+0.4);
+    const osc=[0,7,12].map(semi=>{                       // Sa · Pa · Sa'
+      const o=a.createOscillator(); o.type='sawtooth';
+      o.frequency.value=(f0/4)*Math.pow(2,semi/12);
+      o.connect(lp); o.start(); return o;
+    });
+    lp.connect(g).connect(master);
+    droneNodes={osc,g};
+  }
   return {
-    play,
+    play, reed, drone,
     now:()=>ctx().currentTime,
     setVol:v=>{vol=v; if(master) master.gain.value=v;},
     setPitch:h=>{f0=h;}
@@ -474,6 +565,11 @@ function taalCard(t){
       <span class="wkb">${t.week?`Week ${t.week}`:t.family}</span>
       <div class="playbar">
         <button class="pbtn" data-taal="${t.id}">▶ Play</button>
+        <select id="mode-${t.id}" title="What to play">
+          <option value="theka">🥁 Theka</option>
+          <option value="lehra">🎻 Lehra only</option>
+          <option value="both">🎼 Both</option>
+        </select>
         <label>BPM <input type="number" id="bpm-${t.id}" value="${t.bpm}" min="30" max="220"></label>
       </div></div>
     <div class="mn">${t.mnemonic}</div>
@@ -499,10 +595,16 @@ $('#taalList').innerHTML=
 $('#taalIndex').innerHTML=[...courseTaals,...refTaals].map(t=>
   `<span class="chip" style="cursor:pointer" onclick="goTaal('${t.id}')">${t.name} · ${t.beats}</span>`).join('');
 
+/* A taal without a hand-written lehra gets a line of the same character:
+   pentatonic, starting on high Sa so sam is always unmistakable. */
+const LEHRA_BASE=[12,9,7,9,12,14,12,9,7,4,2,4,7,9,7,9];
+const lehraFor=t=>LEHRAS[t.id]||Array.from({length:t.beats},(_,i)=>LEHRA_BASE[i%LEHRA_BASE.length]);
+
 let player=null;
 function stopPlayer(){
   if(!player) return;
   clearTimeout(player.timer);
+  Synth.drone(false);
   document.querySelectorAll('.cell.hit').forEach(c=>c.classList.remove('hit'));
   player.btn.textContent='▶ Play'; player.btn.classList.remove('playing');
   player=null;
@@ -513,15 +615,22 @@ document.querySelectorAll('.pbtn').forEach(btn=>btn.onclick=()=>{
   stopPlayer(); if(typeof stopVarna==='function') stopVarna();
   const t=TAALS.find(x=>x.id===id);
   const beats=t.rows.flatMap(r=>r.bols);
-  const bpm=Math.min(220,Math.max(40,+document.getElementById('bpm-'+id).value||t.bpm));
+  const mel=lehraFor(t);
+  const mode=document.getElementById('mode-'+id).value;
+  const bpm=Math.min(220,Math.max(30,+document.getElementById('bpm-'+id).value||t.bpm));
   const period=60/bpm;
   const start=Synth.now()+0.15;
   let i=0;
   player={id,btn,timer:null};
   btn.textContent='⏹ Stop'; btn.classList.add('playing');
+  if(mode!=='theka') Synth.drone(true);
   (function step(){
     const n=i%beats.length;
-    Synth.play(beats[n],0,period);
+    if(mode!=='lehra') Synth.play(beats[n],0,period);
+    if(mode!=='theka'){
+      /* sam gets a fuller reed so the cycle start is always audible */
+      Synth.reed(Synth.now()+0.02, mel[n%mel.length], period*0.95, n===0?0.22:0.15);
+    }
     document.querySelectorAll(`[data-cell^="${id}-"]`).forEach(c=>c.classList.remove('hit'));
     document.querySelector(`[data-cell="${id}-${n}"]`)?.classList.add('hit');
     i++;
@@ -642,6 +751,85 @@ const order={lesson:0,listen:1,teacher:2};
 $('#allVids').innerHTML=Object.keys(VIDEOS)
   .sort((a,b)=>order[VIDEOS[a].tag]-order[VIDEOS[b].tag])
   .map(vidCard).join('');
+
+/* ================= PRACTICE LOG ================= */
+const LOGKEY='tablaLog';
+const log=JSON.parse(localStorage.getItem(LOGKEY)||'{}');   // {"YYYY-MM-DD": minutes}
+const saveLog=()=>localStorage.setItem(LOGKEY,JSON.stringify(log));
+const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const addDays=(d,n)=>{const x=new Date(d); x.setDate(x.getDate()+n); return x;};
+const today=()=>{const d=new Date(); d.setHours(0,0,0,0); return d;};
+
+/* Streak counts back from today; practising yesterday but not yet today keeps
+   the streak alive, so the day is not "lost" until it actually ends. */
+function streak(){
+  const t=today();
+  let cur=0, cursor=log[iso(t)]?t:(log[iso(addDays(t,-1))]?addDays(t,-1):null);
+  while(cursor && log[iso(cursor)]){ cur++; cursor=addDays(cursor,-1); }
+  let best=0, run=0;
+  const days=Object.keys(log).sort();
+  days.forEach((d,i)=>{
+    if(i && (new Date(d)-new Date(days[i-1]))/864e5===1) run++; else run=1;
+    best=Math.max(best,run);
+  });
+  return {cur,best:Math.max(best,cur)};
+}
+const totalMins=()=>Object.values(log).reduce((a,b)=>a+b,0);
+
+const MILESTONES=[
+  {d:1,  t:'🌱 First practice'},
+  {d:3,  t:'🔥 3-day streak'},
+  {d:7,  t:'⭐ One week'},
+  {d:14, t:'💪 Two weeks'},
+  {d:30, t:'🏆 30 days'},
+  {d:60, t:'🎖️ 60 days'},
+  {d:100,t:'👑 100 days'}
+];
+
+function renderLog(){
+  const t=today(), k=iso(t), done=!!log[k];
+  $('#todayBox').innerHTML=
+    `<button class="donebtn ${done?'done':''}" id="doneBtn">${done?`✓ Practised today — ${log[k]} min`:'I practised today ✓'}</button>`+
+    (done?`<button class="donebtn" id="undoBtn" style="background:none;color:var(--soft);font-size:.85rem;padding:8px 12px">undo</button>`
+        :`<select class="minsel" id="minSel">
+            <option value="5">5 min</option><option value="10" selected>10 min</option>
+            <option value="15">15 min</option><option value="20">20 min</option>
+            <option value="30">30 min</option></select>`);
+
+  const s=streak(), days=Object.keys(log).length;
+  $('#statBox').innerHTML=`
+    <div class="stat"><b>${s.cur}</b><span>day streak</span></div>
+    <div class="stat"><b>${s.best}</b><span>best streak</span></div>
+    <div class="stat"><b>${days}</b><span>days practised</span></div>
+    <div class="stat"><b>${Math.round(totalMins()/60*10)/10}</b><span>hours total</span></div>`;
+
+  /* 12 weeks of squares, ending on today, columns = weeks, rows = weekdays */
+  let end=addDays(t,6-t.getDay());            // pad to end of current week
+  let cells='';
+  for(let i=83;i>=0;i--){
+    const d=addDays(end,-i), key=iso(d), m=log[key]||0;
+    const lv=m===0?0:m<10?1:m<20?2:3;
+    const future=d>t;
+    cells+=`<i class="lv${lv} ${key===iso(t)?'today':''}" title="${key}${m?` — ${m} min`:''}"
+             style="${future?'opacity:.35':''}"></i>`;
+  }
+  $('#heat').innerHTML=cells;
+  $('#heatNote').textContent=days
+    ? `Started ${Object.keys(log).sort()[0]} · orange outline is today.`
+    : 'No practice logged yet — tap the button above after the first session.';
+
+  $('#badges').innerHTML=MILESTONES.map(m=>
+    `<div class="bdg ${s.best>=m.d?'got':''}">${m.t}</div>`).join('');
+
+  const db=$('#doneBtn');
+  if(db) db.onclick=()=>{
+    if(log[k]) return;
+    log[k]=+($('#minSel')?.value||10); saveLog(); renderLog();
+  };
+  const ub=$('#undoBtn');
+  if(ub) ub.onclick=()=>{ delete log[k]; saveLog(); renderLog(); };
+}
+renderLog();
 
 /* ================= CHECKLIST ================= */
 const lvlColors={1:'saffron',2:'plum',3:'teal',4:'saffron',5:'gold'};
