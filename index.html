@@ -250,6 +250,28 @@ section.show{display:block;animation:fade .34s var(--ease)}
 .check input{margin-top:5px;accent-color:var(--teal);width:17px;height:17px}
 .check .lvltag{font-size:.68rem;font-weight:800;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
 
+/* share button + sheet */
+.shbtn{background:#fff;border:1.5px solid var(--line);color:var(--soft);border-radius:999px;
+  padding:6px 14px;font-size:.83rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;
+  transition:.16s var(--ease);display:inline-flex;align-items:center;gap:6px}
+.shbtn:hover{border-color:var(--saffron);color:var(--saffron);background:var(--saffron-soft);transform:translateY(-1px)}
+.wk-head .shbtn{margin-left:auto}
+.sheet{position:fixed;inset:0;z-index:120;background:rgba(36,26,23,.62);backdrop-filter:blur(5px);
+  display:none;align-items:center;justify-content:center;padding:20px}
+.sheet.show{display:flex;animation:fade .2s var(--ease)}
+.sheetbox{background:var(--card);border-radius:24px;max-width:430px;width:100%;padding:24px;
+  position:relative;box-shadow:var(--shadow-lg);max-height:92vh;overflow:auto}
+.sheetbox h3{font-size:1.3rem;color:#9c3f05;margin-bottom:4px}
+.sheetbox img{width:100%;border-radius:14px;border:1px solid var(--line);margin:14px 0;display:block;
+  box-shadow:var(--shadow-sm)}
+.sheetx{position:absolute;right:14px;top:14px;background:none;border:none;font-size:1.15rem;
+  color:var(--soft);cursor:pointer;padding:6px;line-height:1}
+.sheetrow{display:flex;gap:8px;flex-wrap:wrap}
+.sheetrow .barbtn{flex:1;min-width:120px}
+.barbtn.ghost2{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+#shLink{width:100%;margin-top:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;
+  font-family:'Outfit',sans-serif;font-size:.8rem;color:var(--soft);background:var(--bg)}
+
 /* now-playing transport bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:90;transform:translateY(110%);transition:transform .22s ease;
   background:#241c15;color:#f6ebd9;box-shadow:0 -4px 24px rgba(0,0,0,.35)}
@@ -313,10 +335,11 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
 
 <main>
   <section id="weeks" class="show">
-    <div class="intro"><b>How to use:</b> one card = one week, grouped into 5 levels. Open the week you are teaching
-      and share its videos and bol-groups as that week's reference. Each card has the goal, concepts, a class plan,
-      measurable drills, homework and a teacher tip. Levels 1–4 (weeks 1–16) are the core "basics" course;
-      Level 5 is the optional stretch for fast learners.</div>
+    <div class="intro"><b>How to use:</b> one card = one week, grouped into 5 levels. Each card has the goal,
+      concepts, a class plan, measurable drills, homework and a teacher tip. Levels 1–4 (weeks 1–16) are the core
+      "basics" course; Level 5 is the optional stretch for fast learners.
+      <b>After class, hit 📤 Share</b> — it makes an image card with the week's goal and homework that you can send
+      straight to the class WhatsApp group, and the link opens right back to this lesson.</div>
     <div id="wkList"></div>
     <div class="check" id="checklist">
       <h3>🎓 Graduation Checklist — "Can the child…"</h3>
@@ -426,6 +449,22 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
     <div class="vids" id="allVids"></div>
   </section>
 </main>
+
+<div id="shSheet" class="sheet">
+  <div class="sheetbox">
+    <button class="sheetx" id="shClose" title="Close">✕</button>
+    <h3>Share this card</h3>
+    <p class="mn">Send it to the class WhatsApp group — the image carries the notation,
+       and the link opens straight to this lesson.</p>
+    <img id="shImg" alt="Share card preview">
+    <div class="sheetrow">
+      <button class="barbtn" id="shWa">💬 Share / WhatsApp</button>
+      <button class="barbtn ghost2" id="shDl">⬇ Save image</button>
+      <button class="barbtn ghost2" id="shCopy">🔗 Copy link</button>
+    </div>
+    <input id="shLink" readonly>
+  </div>
+</div>
 
 <div id="bar" class="bar">
   <div class="barwrap">
@@ -722,6 +761,8 @@ $('#wkList').innerHTML=LEVELS.map(L=>{
     <div class="wk-head" onclick="this.parentElement.classList.toggle('open')">
       <div class="em">${w.emoji}</div>
       <div><h3>Week ${w.n} — ${w.title}</h3><div class="sub">${w.goal}</div></div>
+      <button class="shbtn" onclick="event.stopPropagation();SHARE.preview('week',${w.n})"
+        title="Share Week ${w.n} to WhatsApp">📤 Share</button>
       <div class="arrow">▶</div>
     </div>
     <div class="wk-body">
@@ -733,6 +774,8 @@ $('#wkList').innerHTML=LEVELS.map(L=>{
       <ul class="drills">${w.drills.map(d=>`<li>${d}</li>`).join('')}</ul>
       <div class="hw">📝 <b>Homework:</b> ${w.homework}</div>
       <div class="tip">💡 ${w.tip}</div>
+      <button class="taallink" style="background:#25D366;margin-top:14px"
+        onclick="SHARE.preview('week',${w.n})">📤 Share Week ${w.n} with the class</button>
       ${w.varnas?`<div class="kidtip" style="margin-top:12px;background:var(--plum-soft)">🗣️ <b style="color:var(--plum)">Bol-groups for this week</b> — drill these until the hands own them:
         ${w.varnas.map(id=>{const v=VARNAS.flatMap(g=>g.items).find(x=>x.id===id);
           return v?`<button class="taallink" style="margin:6px 6px 0 0;background:var(--plum)" onclick="goVarna('${id}')">${v.name}</button>`:'';}).join('')}</div>`:''}
@@ -764,6 +807,7 @@ function taalCard(t){
       <span class="beats">${t.beats} beats · ${t.vibhag}</span>
       <span class="wkb">${t.week?`Week ${t.week}`:t.family}</span>
       <div class="playbar">
+        <button class="shbtn" onclick="SHARE.preview('taal','${t.id}')" title="Share ${t.name}">📤</button>
         <button class="pbtn" data-taal="${t.id}">▶ Play</button>
         <select id="mode-${t.id}" title="What to play">
           <option value="theka">🥁 Theka</option>
@@ -972,6 +1016,7 @@ $('#varnaList').innerHTML=VARNAS.map(g=>
      <div class="taal-top"><h3>${v.name}</h3>
        <span class="beats">${v.bols.length} strokes</span>
        <div class="playbar">
+         <button class="shbtn" onclick="SHARE.preview('varna','${v.id}')" title="Share ${v.name}">📤</button>
          <button class="vbtn" data-varna="${v.id}">▶ Play</button>
          <label>BPM <input type="number" id="vbpm-${v.id}" value="${v.bpm}" min="30" max="200"></label>
        </div></div>
@@ -1072,6 +1117,238 @@ $('#allVids').innerHTML=Object.keys(VIDEOS)
   .sort((a,b)=>order[VIDEOS[a].tag]-order[VIDEOS[b].tag])
   .map(vidCard).join('');
 
+/* ================= SHARE CARDS =================
+   After a class the teacher shares what was covered. WhatsApp renders an
+   image far better than a link, so each week / taal / bol-group can be
+   painted to a PNG and pushed straight into the native share sheet, with
+   the deep link carried alongside it. */
+const SHARE=(()=>{
+  const W=1080, H=1350;
+  const F=(w,s,fam='Outfit')=>`${w} ${s}px "${fam}", system-ui, sans-serif`;
+  const C={ink:'#241a17',soft:'#8a7b6e',saffron:'#e2570a',teal:'#0d766c',
+           plum:'#8a2f66',gold:'#bd8410',line:'#ece0d1',bg:'#fbf6ef'};
+
+  function wrap(ctx,text,x,y,maxW,lh,max){
+    const words=String(text).split(' '); let line='', n=0;
+    for(const w of words){
+      const t=line?line+' '+w:w;
+      if(ctx.measureText(t).width>maxW && line){
+        ctx.fillText(line,x,y+n*lh); line=w; n++;
+        if(max&&n>=max){ ctx.fillText(line.slice(0,40)+'…',x,y+n*lh); return y+(n+1)*lh; }
+      } else line=t;
+    }
+    ctx.fillText(line,x,y+n*lh);
+    return y+(n+1)*lh;
+  }
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath(); ctx.moveTo(x+r,y);
+    ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+    ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+  }
+  function header(ctx,kicker){
+    const g=ctx.createLinearGradient(0,0,W,300);
+    g.addColorStop(0,'#f0871f'); g.addColorStop(.5,'#d8480c'); g.addColorStop(1,'#8d1f0a');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,232);
+    // logo mark
+    ctx.beginPath(); ctx.arc(84,116,34,0,7); ctx.strokeStyle='rgba(255,220,180,.6)'; ctx.lineWidth=3; ctx.stroke();
+    const lg=ctx.createRadialGradient(74,104,4,84,116,26);
+    lg.addColorStop(0,'#ffe6c4'); lg.addColorStop(.55,'#e58a2a'); lg.addColorStop(1,'#8a3c07');
+    ctx.fillStyle=lg; ctx.beginPath(); ctx.arc(84,116,25,0,7); ctx.fill();
+    ctx.fillStyle='#1a0f0a'; ctx.beginPath(); ctx.arc(84,116,9,0,7); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font=F(900,52,'Fraunces'); ctx.fillText('Tablafy',134,134);
+    ctx.font=F(600,23); ctx.fillStyle='rgba(255,255,255,.85)';
+    ctx.fillText(kicker,136,176);
+  }
+  function footer(ctx,url,bottom){
+    ctx.fillStyle=C.line; ctx.fillRect(72,bottom-132,W-144,2);
+    ctx.font=F(600,24); ctx.fillStyle=C.soft;
+    ctx.fillText('Full course, play-along & videos →',72,bottom-84);
+    ctx.font=F(700,24); ctx.fillStyle=C.saffron;
+    const short=url.replace(/^https?:\/\//,'').replace(/index\.html$/,'');
+    ctx.fillText(short.length>52?short.slice(0,52)+'…':short,72,bottom-48);
+  }
+  /* beat boxes, wrapped by vibhag */
+  function drawTaal(ctx,t,top){
+    let x=72, y=top, bw=0, gap=12;
+    const per=t.rows.map(r=>r.bols.length);
+    const maxCells=Math.max(...per);
+    bw=Math.min(112,(W-144-gap*(maxCells-1))/maxCells);
+    const bh=104;
+    t.rows.forEach((r,ri)=>{
+      x=72;
+      r.bols.forEach((b,i)=>{
+        const mk=r.marks[i];
+        ctx.fillStyle=mk==='+'?'#fdeadb':mk==='O'?'#f7f4ef':'#fff';
+        roundRect(ctx,x,y,bw,bh,14); ctx.fill();
+        ctx.strokeStyle=C.line; ctx.lineWidth=2; ctx.stroke();
+        ctx.textAlign='center';
+        ctx.font=F(700,19); ctx.fillStyle=C.soft;
+        const num=per.slice(0,ri).reduce((a,c)=>a+c,0)+i+1;
+        ctx.fillText(num,x+bw/2,y+28);
+        ctx.font=F(700,Math.min(30,bw/(b.length>5?5.2:2.6)),'Fraunces');
+        ctx.fillStyle=C.ink; ctx.fillText(b,x+bw/2,y+64);
+        if(mk!=='.'){
+          ctx.font=F(700,17);
+          ctx.fillStyle=mk==='+'?C.saffron:mk==='O'?C.plum:C.teal;
+          ctx.fillText(mk==='+'?'+ SAM':mk==='O'?'WAVE':'CLAP',x+bw/2,y+90);
+        }
+        ctx.textAlign='left';
+        x+=bw+gap;
+      });
+      y+=bh+14;
+    });
+    return y;
+  }
+
+  async function paint(kind,item){
+    await (document.fonts?document.fonts.ready:Promise.resolve());
+    const cv=document.createElement('canvas');
+    cv.width=W; cv.height=H;
+    const ctx=cv.getContext('2d');
+    ctx.fillStyle=C.bg; ctx.fillRect(0,0,W,H);
+    ctx.textBaseline='alphabetic';
+    let y=310;
+
+    if(kind==='taal'){
+      header(ctx,item.week?`Taal · taught in Week ${item.week}`:`Taal · ${item.family||'reference'}`);
+      ctx.fillStyle=C.ink; ctx.font=F(900,72,'Fraunces');
+      ctx.fillText(item.name,72,y); y+=16;
+      ctx.font=F(600,30); ctx.fillStyle=C.saffron;
+      ctx.fillText(`${item.beats} beats · ${item.vibhag}`,72,y+30); y+=86;
+      y=drawTaal(ctx,item,y);
+      y+=26; ctx.font=F(700,28); ctx.fillStyle=C.teal;
+      y=wrap(ctx,'Hands: '+item.clap,72,y,W-144,40);
+      y+=14; ctx.font=F(400,27); ctx.fillStyle=C.ink;
+      y=wrap(ctx,item.kidTip,72,y+10,W-144,38,4);
+    }
+
+    if(kind==='varna'){
+      header(ctx,'Bol-group · practise as one word');
+      ctx.fillStyle=C.ink; ctx.font=F(900,74,'Fraunces');
+      ctx.fillText(item.name,72,y); y+=64;
+      // strokes
+      let x=72; const bw=Math.min(180,(W-144-14*(item.bols.length-1))/item.bols.length);
+      item.bols.forEach((b,i)=>{
+        ctx.fillStyle=i===0?'#fdeadb':'#fff';
+        roundRect(ctx,x,y,bw,110,16); ctx.fill();
+        ctx.strokeStyle=C.line; ctx.lineWidth=2; ctx.stroke();
+        ctx.textAlign='center'; ctx.font=F(700,Math.min(38,bw/2.4),'Fraunces');
+        ctx.fillStyle=C.ink; ctx.fillText(b,x+bw/2,y+70);
+        ctx.textAlign='left'; x+=bw+14;
+      });
+      y+=160;
+      ctx.font=F(700,27); ctx.fillStyle=C.teal; ctx.fillText('Trains',72,y); y+=38;
+      ctx.font=F(400,27); ctx.fillStyle=C.ink; y=wrap(ctx,item.trains,72,y,W-144,38,3);
+      y+=22; ctx.font=F(700,27); ctx.fillStyle=C.teal; ctx.fillText('How to play',72,y); y+=38;
+      ctx.font=F(400,27); ctx.fillStyle=C.ink; y=wrap(ctx,item.how,72,y,W-144,38,3);
+      if(item.buildsInto&&item.buildsInto.length){
+        y+=22; ctx.font=F(700,26); ctx.fillStyle=C.plum;
+        const names=item.buildsInto.map(b=>{const t=TAALS.find(x=>x.id===b.taal);return (t?t.name:b.taal)+' — '+b.what;});
+        wrap(ctx,'Builds into: '+names.join(' · '),72,y,W-144,36,3);
+      }
+    }
+
+    if(kind==='week'){
+      header(ctx,`Level ${item.level} · Week ${item.n} of 20`);
+      ctx.fillStyle=C.ink; ctx.font=F(900,66,'Fraunces');
+      y=wrap(ctx,item.emoji+'  '+item.title,72,y,W-144,74,2)+6;
+      ctx.font=F(600,29); ctx.fillStyle=C.saffron;
+      y=wrap(ctx,item.goal,72,y,W-144,40,3);
+      y+=30; ctx.font=F(700,27); ctx.fillStyle=C.teal; ctx.fillText('What we covered',72,y); y+=42;
+      ctx.font=F(400,27); ctx.fillStyle=C.ink;
+      item.learn.slice(0,4).forEach(l=>{ y=wrap(ctx,'•  '+l,72,y,W-160,38,2)+4; });
+      y+=18;
+      /* the homework panel is measured before it is drawn, so the box always
+         fits its text exactly */
+      const hy=y;
+      ctx.font=F(400,27);
+      const lines=[]; { let line='',ws=item.homework.split(' ');
+        for(const w of ws){ const t=line?line+' '+w:w;
+          if(ctx.measureText(t).width>W-208 && line){lines.push(line);line=w;} else line=t; }
+        lines.push(line); }
+      const hh=64+lines.length*38;
+      ctx.fillStyle='#f9e5f1'; roundRect(ctx,72,hy,W-144,hh,18); ctx.fill();
+      ctx.fillStyle=C.plum; ctx.font=F(700,27); ctx.fillText('Practice at home',104,hy+44);
+      ctx.font=F(400,27); ctx.fillStyle=C.ink;
+      lines.forEach((l,i)=>ctx.fillText(l,104,hy+86+i*38));
+      y=hy+hh+8;
+    }
+
+    /* Crop to the content instead of always shipping a 1080×1350 slab —
+       a card with trailing whitespace looks unfinished in a chat thread. */
+    const outH=Math.min(H,Math.max(760,Math.round(y)+186));
+    const out=document.createElement('canvas');
+    out.width=W; out.height=outH;
+    const o=out.getContext('2d');
+    o.fillStyle=C.bg; o.fillRect(0,0,W,outH);
+    o.drawImage(cv,0,0,W,outH,0,0,W,outH);
+    footer(o,LINK.base(),outH);
+    return new Promise(res=>out.toBlob(res,'image/png'));
+  }
+
+  const LINK={
+    base:()=>location.origin+location.pathname,
+    for:(kind,id)=>LINK.base()+'#'+(kind==='week'?'week':kind)+'-'+id
+  };
+
+  function caption(kind,item){
+    const url=LINK.for(kind,kind==='week'?item.n:item.id);
+    if(kind==='week')
+      return `🥁 *Tablafy — Week ${item.n}: ${item.title}*\n\n${item.goal}\n\n📝 *Practice at home:* ${item.homework}\n\nTap to open the lesson, videos and play-along:\n${url}`;
+    if(kind==='taal')
+      return `🥁 *${item.name}* — ${item.beats} beats (${item.vibhag})\n\n${item.rows.map(r=>r.bols.join(' ')).join(' | ')}\n\nHands: ${item.clap}\n\nHear it & play along:\n${url}`;
+    return `🥁 *${item.name}* — bol-group practice\n\n${item.bols.join(' · ')}\n\n${item.trains}\n\nHear it & play along:\n${url}`;
+  }
+
+  async function share(kind,id){
+    const item = kind==='week' ? WEEKS.find(w=>w.n==id)
+               : kind==='taal' ? TAALS.find(t=>t.id===id)
+               : VARNAS.flatMap(g=>g.items).find(v=>v.id===id);
+    if(!item) return;
+    const text=caption(kind,item);
+    const url=LINK.for(kind,kind==='week'?item.n:item.id);
+    const name=(kind==='week'?`tablafy-week-${item.n}`:`tablafy-${item.id}`)+'.png';
+    let blob=null;
+    try{ blob=await paint(kind,item); }catch(e){}
+    // 1) native share sheet with the image (goes straight to WhatsApp on phones)
+    if(blob&&navigator.canShare){
+      const file=new File([blob],name,{type:'image/png'});
+      if(navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file],text}); return 'shared'; }catch(e){ if(e.name==='AbortError') return 'cancelled'; }
+      }
+    }
+    // 2) native share sheet, text only
+    if(navigator.share){
+      try{ await navigator.share({title:'Tablafy',text,url}); return 'shared'; }
+      catch(e){ if(e.name==='AbortError') return 'cancelled'; }
+    }
+    // 3) desktop: download the card and open WhatsApp Web with the caption
+    if(blob) downloadBlob(blob,name);
+    window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank','noopener');
+    return 'fallback';
+  }
+  function downloadBlob(blob,name){
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download=name;
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
+  }
+  async function preview(kind,id){
+    const item = kind==='week' ? WEEKS.find(w=>w.n==id)
+               : kind==='taal' ? TAALS.find(t=>t.id===id)
+               : VARNAS.flatMap(g=>g.items).find(v=>v.id===id);
+    if(!item) return;
+    const blob=await paint(kind,item);
+    const src=URL.createObjectURL(blob);
+    $('#shImg').src=src;
+    $('#shSheet').classList.add('show');
+    $('#shSheet').dataset.kind=kind; $('#shSheet').dataset.id=id;
+    $('#shLink').value=LINK.for(kind,kind==='week'?item.n:item.id);
+    $('#shDl').onclick=()=>downloadBlob(blob,(kind==='week'?`tablafy-week-${item.n}`:`tablafy-${item.id}`)+'.png');
+  }
+  return {share,preview,paint,LINK,caption,downloadBlob};
+})();
+
 /* ================= NOW-PLAYING BAR + TAB DOTS ================= */
 function paintTabDots(){
   const t=Transport.info(), v=YT.info();
@@ -1120,6 +1397,44 @@ $('#barGo').onclick=()=>{
   setTimeout(()=>anchor?anchor.scrollIntoView({behavior:'smooth',block:'center'}):0,60);
 };
 renderBar();
+
+/* ---------- share sheet wiring ---------- */
+$('#shClose').onclick=()=>$('#shSheet').classList.remove('show');
+$('#shSheet').onclick=e=>{ if(e.target.id==='shSheet') $('#shSheet').classList.remove('show'); };
+$('#shWa').onclick=async()=>{
+  const s=$('#shSheet');
+  const r=await SHARE.share(s.dataset.kind,s.dataset.id);
+  if(r!=='cancelled') s.classList.remove('show');
+};
+$('#shCopy').onclick=async()=>{
+  const inp=$('#shLink');
+  try{ await navigator.clipboard.writeText(inp.value); }
+  catch(e){ inp.select(); document.execCommand('copy'); }
+  const b=$('#shCopy'), t=b.textContent; b.textContent='✓ Copied!';
+  setTimeout(()=>b.textContent=t,1400);
+};
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') $('#shSheet').classList.remove('show');
+});
+
+/* ---------- deep links: #week-5 · #taal-teentaal · #varna-takita ---------- */
+function openHash(h){
+  h=(h||'').replace(/^#/,''); if(!h) return false;
+  const m=h.match(/^(week|taal|varna)-(.+)$/); if(!m) return false;
+  const [,kind,id]=m;
+  if(kind==='week'){
+    document.querySelector('[data-s="weeks"]').click();
+    const card=document.getElementById('week'+id);
+    if(card){ document.querySelectorAll('.wk.open').forEach(w=>w.classList.remove('open'));
+      card.classList.add('open');
+      setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'start'}),80); }
+    return true;
+  }
+  if(kind==='taal'){ goTaal(id); return true; }
+  if(kind==='varna'){ goVarna(id); return true; }
+  return false;
+}
+window.addEventListener('hashchange',()=>openHash(location.hash));
 
 /* ================= PRACTICE LOG ================= */
 const LOGKEY='tablaLog';
@@ -1210,6 +1525,9 @@ document.querySelectorAll('#ckList input').forEach(cb=>{
   cb.checked=!!saved[cb.dataset.i];
   cb.onchange=()=>{saved[cb.dataset.i]=cb.checked;localStorage.setItem('tablaCk',JSON.stringify(saved));};
 });
+
+/* a shared link lands on exactly the lesson it points at */
+openHash(location.hash);
 </script>
 </body>
 </html>

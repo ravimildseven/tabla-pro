@@ -37,6 +37,11 @@ memorised beat by beat; it is assembled from small groups the hands already own.
   practised and total hours, with a 12-week heatmap and milestone badges (3 days → 100
   days). Practising yesterday but not yet today keeps the streak alive, so a day is not
   "lost" until it actually ends. Stored in `localStorage` only — nothing is uploaded.
+- **📤 Share cards** — every week, taal and bol-group has a Share button that paints a
+  PNG card (notation, goal, homework, branding) and pushes it into the native share sheet,
+  so it lands in a WhatsApp group as an image. On desktop it saves the PNG and opens
+  WhatsApp Web with the caption prefilled. Every card carries a deep link
+  (`#week-6`, `#taal-teentaal`, `#varna-takita`) that opens the app straight to that lesson.
 - **🎓 Graduation checklist** — 17 level-tagged tick boxes (saved in the browser);
   Levels 1–4 ticked = knows the basics.
 - **🔤 Bols** — the tabla alphabet reference; press ▶ on any row to hear the stroke.
@@ -58,9 +63,11 @@ in a `samples/` folder next to `index.html` — they are detected and used autom
 1. Open the page, expand the week you are teaching.
 2. Share the link with parents and say "we are on Week N" — that week's videos and
    bol-groups are the practice reference.
-3. Use the daily riyaaz routine in the **Teach** tab as the shape of home practice.
-4. Weeks 5–8 are the ones not to rush: bol-groups are what make Weeks 10–16 easy.
-5. Week 16 ends with a mini recital and the graduation checklist; Weeks 17–20 are optional.
+3. After each class, hit **📤 Share** on that week's card and send it to the class
+   WhatsApp group — the image carries the goal and homework, the link reopens the lesson.
+4. Use the daily riyaaz routine in the **Teach** tab as the shape of home practice.
+5. Weeks 5–8 are the ones not to rush: bol-groups are what make Weeks 10–16 easy.
+6. Week 16 ends with a mini recital and the graduation checklist; Weeks 17–20 are optional.
 
 ## Files
 
