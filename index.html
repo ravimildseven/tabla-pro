@@ -3,33 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tabla Pro — Tabla Basics for Kids</title>
+<title>Tablafy — Learn Tabla, One Bol at a Time</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fff8ef; --card:#ffffff; --ink:#3b2f2f; --soft:#8a7b6e;
-  --saffron:#e8630a; --saffron-soft:#fdebd9; --teal:#0e7d72; --teal-soft:#e0f2ef;
-  --gold:#c99117; --gold-soft:#fcf3dc; --plum:#8e3b6e; --plum-soft:#f7e6f0;
-  --line:#efe3d3; --radius:18px;
+  --bg:#fbf6ef; --card:#ffffff; --ink:#241a17; --soft:#8a7b6e;
+  --saffron:#e2570a; --saffron-soft:#fdeadb; --teal:#0d766c; --teal-soft:#ddf1ee;
+  --gold:#bd8410; --gold-soft:#fbf1d9; --plum:#8a2f66; --plum-soft:#f9e5f1;
+  --line:#ece0d1; --radius:20px;
+  --shadow-sm:0 2px 8px rgba(70,45,25,.06);
+  --shadow:0 8px 26px rgba(70,45,25,.09);
+  --shadow-lg:0 18px 48px rgba(70,45,25,.16);
+  --ease:cubic-bezier(.22,1,.36,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;line-height:1.6}
-h1,h2,h3,h4,.tab{font-family:'Baloo 2','Nunito',system-ui,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Fraunces','Outfit',serif;font-weight:700;letter-spacing:-.01em;line-height:1.18}
+.tab{font-family:'Outfit',sans-serif}
+::selection{background:var(--saffron);color:#fff}
 
-header{background:linear-gradient(135deg,#7a1f0c,#b93b0e 55%,#e8630a);color:#fff;padding:38px 20px 30px;text-align:center}
-header h1{font-size:clamp(1.7rem,4.5vw,2.6rem);letter-spacing:.5px}
-header p{max-width:660px;margin:6px auto 0;opacity:.92;font-size:1.02rem}
-.drums-emoji{font-size:1.9rem;letter-spacing:8px}
+/* ---------- hero ---------- */
+header{position:relative;overflow:hidden;color:#fff;padding:64px 20px 58px;text-align:center;
+  background:radial-gradient(120% 120% at 12% 0%,#f0871f 0%,#d8480c 38%,#8d1f0a 72%,#5c1408 100%)}
+header::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,255,255,.14),transparent 70%) 78% 18%/48% 60% no-repeat,
+             radial-gradient(closest-side,rgba(255,210,140,.13),transparent 70%) 14% 82%/44% 56% no-repeat}
+.hero{position:relative;z-index:2;max-width:760px;margin:0 auto}
+.wordmark{display:inline-flex;align-items:center;gap:14px;margin-bottom:8px}
+.wordmark h1{font-size:clamp(2.4rem,7vw,4rem);font-weight:900;letter-spacing:-.03em;
+  background:linear-gradient(180deg,#fff 30%,#ffd9ac);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{font-size:clamp(1rem,2.4vw,1.2rem);opacity:.94;font-weight:500;max-width:600px;margin:6px auto 0}
+.herostats{display:flex;justify-content:center;gap:26px;margin-top:24px;flex-wrap:wrap}
+.hstat b{display:block;font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;line-height:1}
+.hstat span{font-size:.74rem;text-transform:uppercase;letter-spacing:.11em;opacity:.8;font-weight:600}
 
-nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:8px;flex-wrap:wrap;box-shadow:0 2px 10px rgba(60,40,20,.06)}
-.tab{border:none;background:none;font-size:1rem;font-weight:700;color:var(--soft);padding:8px 16px;border-radius:999px;cursor:pointer;transition:.15s}
-.tab:hover{color:var(--saffron)}
-.tab.on{background:var(--saffron);color:#fff}
+/* animated sam-pulse logo */
+.logo{width:56px;height:56px;flex:none;position:relative}
+.logo .ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,220,180,.55)}
+.logo .ring.a{animation:sam 2.6s var(--ease) infinite}
+.logo .ring.b{animation:sam 2.6s var(--ease) infinite .55s}
+.logo .core{position:absolute;inset:12px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#ffe6c4,#e58a2a 55%,#8a3c07);box-shadow:0 3px 12px rgba(0,0,0,.35)}
+.logo .core::after{content:'';position:absolute;inset:28%;border-radius:50%;background:#1a0f0a;opacity:.82}
+@keyframes sam{0%{transform:scale(.72);opacity:.9}100%{transform:scale(1.5);opacity:0}}
 
-main{max-width:1020px;margin:0 auto;padding:26px 16px 70px}
-section{display:none}section.show{display:block}
-.intro{background:var(--teal-soft);border-radius:var(--radius);padding:16px 20px;margin-bottom:22px;font-size:.98rem}
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);display:flex;justify-content:center;gap:2px;padding:9px;flex-wrap:wrap;
+  box-shadow:var(--shadow-sm)}
+.tab{border:none;background:none;font-size:.94rem;font-weight:600;color:var(--soft);padding:9px 15px;
+  border-radius:999px;cursor:pointer;transition:color .18s,background .18s,transform .18s var(--ease);white-space:nowrap}
+.tab:hover{color:var(--saffron);background:var(--saffron-soft);transform:translateY(-1px)}
+.tab.on{background:linear-gradient(135deg,var(--saffron),#f0871f);color:#fff;box-shadow:0 4px 14px rgba(226,87,10,.34)}
+
+main{max-width:1020px;margin:0 auto;padding:30px 16px 80px}
+section{display:none}
+section.show{display:block;animation:fade .34s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.intro{background:linear-gradient(135deg,var(--teal-soft),#eaf7f4);border-radius:var(--radius);
+  padding:18px 22px;margin-bottom:24px;font-size:.97rem;border-left:4px solid var(--teal);box-shadow:var(--shadow-sm)}
 .intro b{color:var(--teal)}
 
 /* level headers */
@@ -43,10 +79,16 @@ section{display:none}section.show{display:block}
 .lvlbadge.plum{background:var(--plum-soft);color:var(--plum)}.lvlbadge.gold{background:var(--gold-soft);color:#8a6410}
 
 /* week cards */
-.wk{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:22px;overflow:hidden;box-shadow:0 3px 14px rgba(60,40,20,.05)}
-.wk-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--saffron-soft);cursor:pointer}
-.wk-head .em{font-size:1.9rem}
-.wk-head h3{font-size:1.25rem;color:#a34406}
+.wk{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:16px;
+  overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .25s var(--ease),transform .25s var(--ease)}
+.wk:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.wk.open{box-shadow:var(--shadow);transform:none}
+.wk-head{display:flex;align-items:center;gap:15px;padding:17px 21px;cursor:pointer;
+  background:linear-gradient(120deg,var(--saffron-soft),#fef5ec);transition:background .2s}
+.wk-head:hover{background:linear-gradient(120deg,#fde0c9,#fdeee0)}
+.wk-head .em{font-size:1.85rem;transition:transform .3s var(--ease)}
+.wk:hover .wk-head .em{transform:scale(1.14) rotate(-6deg)}
+.wk-head h3{font-size:1.16rem;color:#9c3f05}
 .wk-head .sub{font-size:.92rem;color:var(--soft);font-weight:600}
 .wk-head .arrow{margin-left:auto;font-size:1.2rem;color:var(--saffron);transition:.2s}
 .wk.open .arrow{transform:rotate(90deg)}
@@ -87,28 +129,53 @@ section{display:none}section.show{display:block}
 .taal-top .beats{background:var(--saffron);color:#fff;font-weight:800;border-radius:999px;padding:2px 12px;font-size:.85rem}
 .taal-top .wkb{background:var(--teal-soft);color:var(--teal);font-weight:800;border-radius:999px;padding:2px 12px;font-size:.85rem}
 .playbar{margin-left:auto;display:flex;align-items:center;gap:8px}
-.pbtn{background:var(--teal);color:#fff;border:none;border-radius:999px;font-weight:800;font-size:.9rem;padding:7px 18px;cursor:pointer;font-family:'Nunito',sans-serif}
-.pbtn.playing{background:#c0392b}
+.pbtn,.vbtn{background:linear-gradient(135deg,#12a091,var(--teal));color:#fff;border:none;border-radius:999px;
+  font-weight:700;font-size:.88rem;padding:8px 18px;cursor:pointer;font-family:'Outfit',sans-serif;
+  box-shadow:0 4px 12px rgba(13,118,108,.28);transition:transform .16s var(--ease),box-shadow .16s,filter .16s}
+.pbtn:hover,.vbtn:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(13,118,108,.36);filter:brightness(1.06)}
+.pbtn:active,.vbtn:active{transform:translateY(0) scale(.97)}
+.pbtn.playing,.vbtn.playing{background:linear-gradient(135deg,#e14b3a,#c0392b);box-shadow:0 4px 14px rgba(192,57,43,.36)}
 .playbar input{width:64px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem}
 .playbar select{padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer}
 .playbar label{font-size:.85rem;font-weight:700;color:var(--soft)}
 .taal .mn{color:var(--soft);font-size:.95rem;margin:4px 0 12px}
-.grid{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 4px}
-.vb{display:flex;border:2px solid var(--line);border-radius:12px;overflow:hidden}
-.cell{min-width:64px;padding:8px 6px 9px;text-align:center;border-right:1px dashed var(--line);transition:background .1s}
+.grid{display:flex;flex-wrap:wrap;gap:11px;margin:10px 0 4px}
+.vb{display:flex;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.cell{min-width:66px;padding:9px 7px 10px;text-align:center;border-right:1px dashed var(--line);
+  transition:background .12s,color .12s,transform .12s var(--ease);cursor:pointer;position:relative}
 .cell:last-child{border-right:none}
-.cell .num{font-size:.72rem;color:var(--soft);font-weight:700}
-.cell .bol{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:1.05rem}
-.cell .mk{font-size:.72rem;font-weight:800;margin-top:1px}
+.cell:hover{background:var(--gold-soft)}
+.cell .num{font-size:.7rem;color:var(--soft);font-weight:700}
+.cell .bol{font-family:'Fraunces',serif;font-weight:700;font-size:1.02rem}
+.cell .mk{font-size:.68rem;font-weight:700;margin-top:1px;letter-spacing:.02em}
 .cell.sam{background:var(--saffron-soft)}
 .cell.sam .mk{color:var(--saffron)}
 .cell.tali .mk{color:var(--teal)}
-.cell.khali{background:#f6f3ee}
+.cell.khali{background:#f7f4ef}
 .cell.khali .mk{color:var(--plum)}
-.cell.hit{background:var(--teal);color:#fff}
+.cell.hit{background:linear-gradient(160deg,#12a091,var(--teal));color:#fff;
+  transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(13,118,108,.36);z-index:2}
 .cell.hit .num,.cell.hit .mk,.cell.hit .bol{color:#fff}
+.cell.sam.hit{background:linear-gradient(160deg,#f4901f,var(--saffron));box-shadow:0 6px 18px rgba(226,87,10,.42)}
 .legend{font-size:.85rem;color:var(--soft);margin:8px 0 2px}
-.clapline{margin-top:6px;font-weight:700;color:var(--teal);font-size:.95rem}
+/* circular cycle wheel — a taal is a circle, not a line */
+.taalbody{display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.taalbody .left{flex:1;min-width:min(100%,300px)}
+.wheel{width:168px;height:168px;position:relative;flex:none;margin:4px auto 0}
+.wheel .dot{position:absolute;width:13px;height:13px;border-radius:50%;background:var(--line);
+  left:50%;top:50%;margin:-6.5px;transition:background .12s,transform .12s var(--ease)}
+.wheel .dot.s{background:#f5c99a}
+.wheel .dot.k{background:#e3d6e0}
+.wheel .dot.live{background:var(--teal);transform:scale(1.75);box-shadow:0 0 12px rgba(13,118,108,.55)}
+.wheel .dot.live.samdot{background:var(--saffron);box-shadow:0 0 16px rgba(226,87,10,.65)}
+.wheel .hand{position:absolute;left:50%;top:50%;width:2px;height:64px;background:linear-gradient(var(--saffron),transparent);
+  transform-origin:50% 100%;margin:-64px 0 0 -1px;opacity:0;transition:opacity .2s}
+.wheel.on .hand{opacity:.85}
+.wheel .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none}
+.wheel .mid b{font-family:'Fraunces',serif;font-size:1.7rem;line-height:1;color:var(--ink)}
+.wheel .mid span{font-size:.63rem;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);font-weight:700}
+.clapline{margin-top:8px;font-weight:600;color:var(--teal);font-size:.93rem}
 .kidtip{background:var(--gold-soft);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:.94rem}
 .kidtip b{color:#8a6410}
 
@@ -141,6 +208,11 @@ section{display:none}section.show{display:block}
 .drumname{position:absolute;left:50%;transform:translateX(-50%);bottom:-30px;color:#cbb79a;font-weight:800;font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,190,90,.75)}100%{box-shadow:0 0 0 26px rgba(255,190,90,0)}}
 .pulsing{animation:pulse .35s ease-out}
+.drum{transition:transform .09s var(--ease)}
+.drum.struck{transform:scale(.985)}
+.ripple{position:absolute;border-radius:50%;pointer-events:none;border:2px solid rgba(255,214,150,.85);
+  transform:translate(-50%,-50%);animation:rip .5s ease-out forwards}
+@keyframes rip{from{width:8px;height:8px;opacity:.9}to{width:190px;height:190px;opacity:0}}
 .simrow{display:flex;justify-content:center;gap:18px;margin-top:44px;flex-wrap:wrap;color:#cbb79a;font-size:.85rem;font-weight:700}
 .simrow label{display:flex;align-items:center;gap:8px}
 .simrow input[type=range]{accent-color:var(--saffron)}
@@ -211,11 +283,21 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
 <body>
 
 <header>
-  <div class="drums-emoji">🥁🎵🥁</div>
-  <h1>Tabla Pro — Basics for Kids</h1>
-  <p>A 20-week beginner curriculum in 5 levels, built the traditional way: bols → bol-groups → taals.
-     Verified video lessons in one place, everything notated in English with built-in play-along,
-     and a playable tabla — all you need to teach any kid the basics.</p>
+  <div class="hero">
+    <div class="wordmark">
+      <div class="logo"><i class="ring a"></i><i class="ring b"></i><i class="core"></i></div>
+      <h1>Tablafy</h1>
+    </div>
+    <p class="tagline">Learn tabla the traditional way — <b>bols → bol-groups → taals</b>.
+       A complete 20-week course for teaching any first-timer, with everything notated in English,
+       play-along for every taal, and a tabla you can actually play.</p>
+    <div class="herostats">
+      <div class="hstat"><b>20</b><span>weeks</span></div>
+      <div class="hstat"><b>20</b><span>bol-groups</span></div>
+      <div class="hstat"><b>15</b><span>taals</span></div>
+      <div class="hstat"><b>40</b><span>video lessons</span></div>
+    </div>
+  </div>
 </header>
 
 <nav>
@@ -355,7 +437,7 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
   </div>
 </div>
 
-<footer>Tabla Pro · made for teaching first-timers · videos verified via YouTube oEmbed · edit <b>data.js</b> to customise</footer>
+<footer><b>Tablafy</b> · made for teaching first-timers · videos verified via YouTube oEmbed · edit <b>data.js</b> to customise</footer>
 
 <script src="data.js"></script>
 <script>
@@ -378,6 +460,35 @@ const Synth=(()=> {
     }
     if(ac.state==='suspended') ac.resume();
     return ac;
+  }
+  /* Browsers start an AudioContext suspended until a user gesture, and
+     resume() is async. Scheduling against a suspended clock (currentTime
+     frozen at 0) produced silence on the first play — the reason playing a
+     video first "fixed" it was that the video satisfied the autoplay policy.
+     So: unlock on the very first gesture anywhere, and never schedule until
+     the clock is actually running. */
+  let unlocked=false;
+  function unlock(){
+    if(unlocked) return;
+    const a=ctx();
+    const b=a.createBuffer(1,1,22050);
+    const s=a.createBufferSource();
+    s.buffer=b; s.connect(a.destination); s.start(0);   // silent kick
+    a.resume();
+    if(a.state==='running') unlocked=true;
+  }
+  ['pointerdown','touchstart','keydown'].forEach(ev=>
+    document.addEventListener(ev,unlock,{capture:true,passive:true}));
+
+  /* Resolves once the audio clock is genuinely advancing. */
+  async function ready(){
+    const a=ctx();
+    if(a.state==='running') return true;
+    try{ await a.resume(); }catch(e){}
+    for(let i=0;i<20 && a.state!=='running';i++)
+      await new Promise(r=>setTimeout(r,25));
+    unlocked=a.state==='running';
+    return unlocked;
   }
   async function trySamples(){
     if(samplesTried) return; samplesTried=true;
@@ -475,8 +586,14 @@ const Synth=(()=> {
     }
     stroke(bol.toLowerCase(),t,0.9);
   }
-  /* one-shot tap (pads, drum zones, bol rows) */
-  function play(bol,when=0,beatDur=0.5){ playAt(bol,ctx().currentTime+when+0.02,beatDur); }
+  /* One-shot tap (pads, drum zones, bol rows). If the very first tap arrives
+     before the context has woken, wait for the clock rather than firing into
+     a frozen one — otherwise that first stroke is silent. */
+  function play(bol,when=0,beatDur=0.5){
+    const a=ctx();
+    if(a.state==='running'){ playAt(bol,a.currentTime+when+0.02,beatDur); return; }
+    ready().then(ok=>{ if(ok) playAt(bol,ctx().currentTime+when+0.02,beatDur); });
+  }
   /* ---------- lehra: harmonium-style reed + tanpura-ish drone ----------
      The lehra sits an octave below the dayan so the melody stays in a warm
      mid range while still being tuned to the same Sa the drum is tuned to. */
@@ -519,7 +636,7 @@ const Synth=(()=> {
     droneNodes={osc,g};
   }
   return {
-    play, playAt, reed, drone, cancelAfter,
+    play, playAt, reed, drone, cancelAfter, ready, unlock,
     now:()=>ctx().currentTime,
     setVol:v=>{vol=v; if(master) master.gain.value=v;},
     setPitch:h=>{f0=h;}
@@ -656,13 +773,40 @@ function taalCard(t){
         <label>BPM <input type="number" id="bpm-${t.id}" value="${t.bpm}" min="30" max="220"></label>
       </div></div>
     <div class="mn">${t.mnemonic}</div>
-    <div class="grid">${grid}</div>
-    <div class="clapline">Hands: ${t.clap}</div>
+    <div class="taalbody">
+      <div class="left">
+        <div class="grid">${grid}</div>
+        <div class="clapline">Hands: ${t.clap}</div>
+      </div>
+      <div class="wheel" id="wheel-${t.id}" data-beats="${t.beats}">
+        <div class="hand"></div>
+        <div class="mid"><b>${t.beats}</b><span>beats</span></div>
+      </div>
+    </div>
     <div class="kidtip"><b>Kid tip:</b> ${t.kidTip}</div>
     <h4 style="margin:14px 0 4px;color:var(--teal)">🎬 Videos for this taal</h4>
     <div class="vids">${t.videos.map(vidCard).join('')}</div>
   </div>`;
 }
+/* Lay the beats of each taal around a circle: sam at the top, clockwise.
+   Seeing the cycle close on itself is the whole point of a taal. */
+function buildWheels(){
+  TAALS.forEach(t=>{
+    const w=document.getElementById('wheel-'+t.id); if(!w||w.dataset.built) return;
+    const marks=t.rows.flatMap(r=>r.marks);
+    const R=68, n=t.beats;
+    let html='';
+    for(let i=0;i<n;i++){
+      const a=(i/n)*2*Math.PI - Math.PI/2;
+      const cls=marks[i]==='+'?'s samdot':marks[i]==='O'?'k':marks[i]==='C'?'s':'';
+      html+=`<i class="dot ${cls}" data-d="${t.id}-${i}"
+              style="transform:translate(${(Math.cos(a)*R).toFixed(1)}px,${(Math.sin(a)*R).toFixed(1)}px)"></i>`;
+    }
+    w.insertAdjacentHTML('afterbegin',html);
+    w.dataset.built='1';
+  });
+}
+
 const courseTaals=TAALS.filter(t=>t.week).sort((a,b)=>a.week-b.week);
 const refTaals=TAALS.filter(t=>!t.week);
 const families=[...new Set(refTaals.map(t=>t.family))];
@@ -677,6 +821,16 @@ $('#taalList').innerHTML=
   ).join('');
 $('#taalIndex').innerHTML=[...courseTaals,...refTaals].map(t=>
   `<span class="chip" style="cursor:pointer" onclick="goTaal('${t.id}')">${t.name} · ${t.beats}</span>`).join('');
+buildWheels();
+
+/* tap any beat in the notation to hear just that bol */
+document.addEventListener('pointerdown',e=>{
+  const c=e.target.closest('.cell'); if(!c||!c.dataset.cell) return;
+  if(Transport.current()) return;                 // don't fight the player
+  const bol=c.querySelector('.bol')?.textContent;
+  if(bol) Synth.play(bol,0,.45);
+  c.classList.add('hit'); setTimeout(()=>c.classList.remove('hit'),160);
+});
 
 /* A taal without a hand-written lehra gets a line of the same character:
    pentatonic, starting on high Sa so sam is always unmistakable. */
@@ -700,7 +854,7 @@ const Transport=(()=>{
   const listeners=[];
 
   function queue(){
-    if(!S||S.paused) return;
+    if(!S||S.paused||S.pending) return;
     const now=Synth.now(), ahead=LOOKAHEAD();
     while(S.start+S.next*S.period < now+ahead){
       const t=S.start+S.next*S.period, n=S.next%S.seq.length;
@@ -710,15 +864,22 @@ const Transport=(()=>{
     }
   }
   function paint(){
-    if(S&&!S.paused){
+    if(S&&!S.paused&&!S.pending){
       const el=Synth.now()-S.start;
       const n=el<0?0:Math.floor(el/S.period)%S.seq.length;
       if(n!==S.shown){
         S.shown=n;
         document.querySelectorAll(`[data-cell^="${S.id}-"]`).forEach(c=>c.classList.remove('hit'));
         document.querySelector(`[data-cell="${S.id}-${n}"]`)?.classList.add('hit');
+        document.querySelectorAll(`[data-d^="${S.id}-"]`).forEach(d=>d.classList.remove('live'));
+        document.querySelector(`[data-d="${S.id}-${n}"]`)?.classList.add('live');
         emit();
       }
+      /* the hand sweeps continuously, not beat by beat */
+      const w=document.getElementById('wheel-'+S.id);
+      if(w){ w.classList.add('on');
+        const frac=((el/S.period)%S.seq.length)/S.seq.length;
+        w.querySelector('.hand').style.transform=`rotate(${frac*360}deg)`; }
     }
     raf=requestAnimationFrame(paint);
   }
@@ -726,12 +887,18 @@ const Transport=(()=>{
   function info(){
     if(!S) return null;
     return {kind:S.kind,id:S.id,name:S.name,mode:S.mode,bpm:S.bpm,tab:S.tab,
-            paused:S.paused,beat:(S.shown||0)+1,total:S.seq.length};
+            paused:S.paused,pending:S.pending,beat:(S.shown||0)+1,total:S.seq.length};
   }
-  function start(o){
+  async function start(o){
     stop();
     YT.stop();                       // never two sounds at once
-    S={...o,start:Synth.now()+0.12,next:0,shown:-1,paused:false};
+    const token={};                  // guards against a second start() racing
+    S={...o,start:0,next:0,shown:-1,paused:false,pending:true,token};
+    syncUI(); emit();                // instant feedback while audio wakes up
+    await Synth.ready();
+    if(!S||S.token!==token) return;  // superseded or stopped while waiting
+    S.pending=false;
+    S.start=Synth.now()+0.12;
     if(S.mode&&S.mode!=='theka') Synth.drone(true);
     queue(); tick=setInterval(queue,TICK);
     if(!raf) raf=requestAnimationFrame(paint);
@@ -743,6 +910,8 @@ const Transport=(()=>{
     Synth.cancelAfter(Synth.now());
     Synth.drone(false);
     document.querySelectorAll('.cell.hit').forEach(c=>c.classList.remove('hit'));
+    document.querySelectorAll('.dot.live').forEach(d=>d.classList.remove('live'));
+    document.querySelectorAll('.wheel.on').forEach(w=>w.classList.remove('on'));
     S=null; syncUI(); emit();
   }
   function toggle(){
@@ -860,6 +1029,16 @@ $('#pads').innerHTML=PADS.map(p=>
   `<div class="pad" data-bol="${p.b}" id="pad-${p.b}"><b>${p.b}</b><span>key ${p.k}</span></div>`).join('');
 
 function flash(el){ if(!el) return; el.classList.remove('pulsing'); void el.offsetWidth; el.classList.add('pulsing'); }
+/* a ring spreading from exactly where the finger landed */
+function ripple(drum,ev){
+  if(!drum) return;
+  const r=drum.getBoundingClientRect();
+  const x=ev?ev.clientX-r.left:r.width/2, y=ev?ev.clientY-r.top:r.height/2;
+  const i=document.createElement('i');
+  i.className='ripple'; i.style.left=x+'px'; i.style.top=y+'px';
+  drum.appendChild(i); setTimeout(()=>i.remove(),520);
+  drum.classList.add('struck'); setTimeout(()=>drum.classList.remove('struck'),90);
+}
 function hit(bol){
   Synth.play(bol,0,0.4);
   const pad=document.getElementById('pad-'+bol);
@@ -870,9 +1049,11 @@ function hit(bol){
   if(bol==='Dha'||bol==='Dhin') flash(document.querySelector('#bayan .z-maidan'));
 }
 /* drum zones: chaat (outer drum surface) = Na on dayan / Kat on bayan */
-document.querySelectorAll('.zone').forEach(z=>z.addEventListener('pointerdown',e=>{e.stopPropagation();hit(z.dataset.bol);}));
-$('#dayan').addEventListener('pointerdown',()=>hit('Na'));
-$('#bayan').addEventListener('pointerdown',()=>hit('Kat'));
+document.querySelectorAll('.zone').forEach(z=>z.addEventListener('pointerdown',e=>{
+  e.stopPropagation(); hit(z.dataset.bol); ripple(z.closest('.drum'),e);
+}));
+$('#dayan').addEventListener('pointerdown',e=>{hit('Na');ripple($('#dayan'),e);});
+$('#bayan').addEventListener('pointerdown',e=>{hit('Kat');ripple($('#bayan'),e);});
 document.querySelectorAll('.pad').forEach(p=>p.addEventListener('pointerdown',()=>hit(p.dataset.bol)));
 
 const keyMap=Object.fromEntries(PADS.map(p=>[p.k.toLowerCase(),p.b]));
@@ -913,9 +1094,10 @@ function renderBar(){
   if(t){
     const modeTxt={theka:'Theka',lehra:'Lehra only',both:'Theka + Lehra'}[t.mode]||'Theka';
     $('#barTitle').textContent=(t.kind==='varna'?'🗣️ ':'👏 ')+t.name;
-    $('#barSub').textContent=`${t.kind==='varna'?'Bol-group':modeTxt} · ${t.bpm} BPM`+(t.paused?' · paused':'');
-    beat.style.display=''; beat.textContent=t.paused?'❚❚':`${t.beat}/${t.total}`;
-    beat.className='beat'+(t.beat===1&&!t.paused?' sam':'');
+    $('#barSub').textContent=t.pending?'waking up audio…'
+      :`${t.kind==='varna'?'Bol-group':modeTxt} · ${t.bpm} BPM`+(t.paused?' · paused':'');
+    beat.style.display=''; beat.textContent=t.pending?'…':t.paused?'❚❚':`${t.beat}/${t.total}`;
+    beat.className='beat'+(t.beat===1&&!t.paused&&!t.pending?' sam':'');
     pause.style.display=''; pause.textContent=t.paused?'▶':'⏸';
   }else{
     $('#barTitle').textContent='🎬 '+v.title;

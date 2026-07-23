@@ -1,7 +1,10 @@
-# Tabla Pro — Tabla Basics for Kids
+# Tablafy — Learn Tabla, One Bol at a Time
 
 A complete beginner curriculum for teaching Tabla to first-timers (designed for kids),
 built as a single shareable web page. Companion project to [laya-kosh](https://github.com/ravimildseven/laya-kosh).
+
+> Named **Tablafy** — the earlier working title "Tabla Pro" collides with the
+> established iOS app *iTabla Pro*.
 
 ## What's inside
 

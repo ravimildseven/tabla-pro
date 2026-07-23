@@ -1,4 +1,4 @@
-/* ============ TABLA PRO — TEACHING DATA ============
+/* ============ TABLAFY — TEACHING DATA ============
    A 20-week beginner curriculum for teaching Tabla to kids.
    All YouTube video ids below were verified playable via the
    oEmbed endpoint on 2026-07-19 — none are invented.
