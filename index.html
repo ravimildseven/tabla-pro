@@ -59,6 +59,13 @@ nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-f
   border-radius:999px;cursor:pointer;transition:color .18s,background .18s,transform .18s var(--ease);white-space:nowrap}
 .tab:hover{color:var(--saffron);background:var(--saffron-soft);transform:translateY(-1px)}
 .tab.on{background:linear-gradient(135deg,var(--saffron),#f0871f);color:#fff;box-shadow:0 4px 14px rgba(226,87,10,.34)}
+/* on phones the nav becomes one swipeable row instead of four stacked ones */
+@media(max-width:720px){
+  nav{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;padding:8px 10px}
+  nav::-webkit-scrollbar{display:none}
+  .tab{font-size:.86rem;padding:8px 12px;flex:none}
+}
 
 main{max-width:1020px;margin:0 auto;padding:30px 16px 80px}
 section{display:none}
@@ -250,6 +257,58 @@ section.show{display:block;animation:fade .34s var(--ease)}
 .check input{margin-top:5px;accent-color:var(--teal);width:17px;height:17px}
 .check .lvltag{font-size:.68rem;font-weight:800;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
 
+/* ---------- bento tiles ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px 22px;
+  position:relative;overflow:hidden;cursor:pointer;box-shadow:var(--shadow-sm);
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .2s;
+  display:flex;flex-direction:column;gap:6px;text-align:left;font-family:'Outfit',sans-serif;color:inherit}
+.tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+.tile:active{transform:translateY(-1px)}
+.tile .ico{font-size:1.7rem;line-height:1}
+.tile h3{font-size:1.12rem}
+.tile p{font-size:.87rem;color:var(--soft);line-height:1.45}
+.tile .big{font-family:'Fraunces',serif;font-weight:900;font-size:2.6rem;line-height:1;letter-spacing:-.02em}
+.tile .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;opacity:.75}
+.tile::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity .28s;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,255,255,.22),transparent)}
+.tile:hover::after{opacity:1}
+.t-w6{grid-column:span 6}.t-w4{grid-column:span 4}.t-w3{grid-column:span 3}
+.t-w2{grid-column:span 2}.t-w5{grid-column:span 5}
+.tile.dark{background:linear-gradient(140deg,#2d2018,#241a17);color:#f6ebd9;border-color:#3b2c22}
+.tile.dark p{color:#c3ae95}
+.tile.saff{background:linear-gradient(140deg,#f0871f,#d8480c);color:#fff;border-color:transparent}
+.tile.saff p,.tile.saff .lbl{color:rgba(255,255,255,.9)}
+.tile.tealt{background:linear-gradient(140deg,#12a091,#0d766c);color:#fff;border-color:transparent}
+.tile.tealt p,.tile.tealt .lbl{color:rgba(255,255,255,.9)}
+.tile.plumt{background:linear-gradient(140deg,#a53b7c,#8a2f66);color:#fff;border-color:transparent}
+.tile.plumt p,.tile.plumt .lbl{color:rgba(255,255,255,.9)}
+.tile.goldt{background:linear-gradient(140deg,#e0a627,#bd8410);color:#fff;border-color:transparent}
+.tile.goldt p,.tile.goldt .lbl{color:rgba(255,255,255,.9)}
+.tilerow{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:8px}
+.minibeats{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+.minibeats i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.34)}
+.minibeats i.on{background:#fff}
+.sparks{display:flex;gap:3px;align-items:flex-end;height:34px;margin-top:8px}
+.sparks i{flex:1;background:rgba(255,255,255,.3);border-radius:2px;min-height:3px}
+.sparks i.on{background:#fff}
+@media(max-width:860px){.bento{grid-template-columns:repeat(4,1fr)}
+  .t-w6,.t-w5,.t-w4{grid-column:span 4}.t-w3{grid-column:span 2}.t-w2{grid-column:span 2}}
+@media(max-width:520px){.bento{grid-template-columns:repeat(2,1fr)}
+  .t-w6,.t-w5,.t-w4,.t-w3{grid-column:span 2}.t-w2{grid-column:span 2}}
+
+/* forms */
+.formgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.stagehdr{display:flex;align-items:center;gap:10px;margin:26px 2px 12px}
+.stagehdr h2{font-size:1.15rem;color:var(--plum)}
+.stagehdr .rule{flex:1;height:1px;background:var(--line)}
+.bolstrip{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0}
+.bolstrip i{font-style:normal;font-family:'Fraunces',serif;font-weight:700;font-size:.82rem;
+  background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:3px 7px;transition:.1s}
+.bolstrip i.sam{background:var(--saffron-soft);border-color:#f3c39c}
+.bolstrip i.hit{background:var(--teal);color:#fff;border-color:var(--teal);transform:translateY(-2px)}
+.laygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+
 /* share button + sheet */
 .shbtn{background:#fff;border:1.5px solid var(--line);color:var(--soft);border-radius:999px;
   padding:6px 14px;font-size:.83rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;
@@ -310,23 +369,20 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
       <div class="logo"><i class="ring a"></i><i class="ring b"></i><i class="core"></i></div>
       <h1>Tablafy</h1>
     </div>
-    <p class="tagline">Learn tabla the traditional way — <b>bols → bol-groups → taals</b>.
-       A complete 20-week course for teaching any first-timer, with everything notated in English,
-       play-along for every taal, and a tabla you can actually play.</p>
-    <div class="herostats">
-      <div class="hstat"><b>20</b><span>weeks</span></div>
-      <div class="hstat"><b>20</b><span>bol-groups</span></div>
-      <div class="hstat"><b>15</b><span>taals</span></div>
-      <div class="hstat"><b>40</b><span>video lessons</span></div>
-    </div>
+    <p class="tagline">Learn tabla the traditional way — <b>bols → bol-groups → taals → repertoire</b>.
+       A complete course from a child's first stroke to a performed solo, everything notated in English,
+       with play-along for every taal and a tabla you can actually play.</p>
+    <div class="herostats" id="heroStats"></div>
   </div>
 </header>
 
 <nav>
-  <button class="tab on" data-s="weeks">📅 Weekly Plan</button>
+  <button class="tab on" data-s="home">🏠 Home</button>
+  <button class="tab" data-s="weeks">📅 Weekly Plan</button>
   <button class="tab" data-s="bols">🔤 Bols</button>
   <button class="tab" data-s="varnas">🗣️ Bol-Groups</button>
   <button class="tab" data-s="taals">👏 Taals</button>
+  <button class="tab" data-s="forms">📜 Repertoire</button>
   <button class="tab" data-s="play">🥁 Play</button>
   <button class="tab" data-s="progress">📈 Practice Log</button>
   <button class="tab" data-s="teach">📖 Teach</button>
@@ -334,10 +390,33 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
 </nav>
 
 <main>
-  <section id="weeks" class="show">
+  <section id="home" class="show">
+    <div class="bento" id="bento"></div>
+  </section>
+
+  <section id="forms">
+    <div class="intro"><b>The repertoire.</b> Everything a tabla player learns after the thekas — the forms
+      that make up a real solo, in the order a performance presents them. Each one is playable, so you can
+      hear the difference between a kaida and a rela rather than only read it.
+      Below the forms: <b>layakari</b> (the maths of speed), the <b>jaati</b> divisions, and the arc of a full solo.</div>
+    <div id="formList"></div>
+
+    <div class="stagehdr"><h2>🔢 Layakari — same clap, different density</h2><div class="rule"></div></div>
+    <p class="mn" style="margin-bottom:12px">The clapping never changes; only the number of bols packed into each
+      matra does. Press play on each to feel the ladder — this is the intellectual heart of tabla.</p>
+    <div class="laygrid" id="layList"></div>
+
+    <div class="stagehdr"><h2>🧮 Jaati — dividing one beat</h2><div class="rule"></div></div>
+    <div class="laygrid" id="jaatiList"></div>
+
+    <div class="stagehdr"><h2>👑 The arc of a tabla solo</h2><div class="rule"></div></div>
+    <div class="formgrid" id="arcList"></div>
+  </section>
+
+  <section id="weeks">
     <div class="intro"><b>How to use:</b> one card = one week, grouped into 5 levels. Each card has the goal,
       concepts, a class plan, measurable drills, homework and a teacher tip. Levels 1–4 (weeks 1–16) are the core
-      "basics" course; Level 5 is the optional stretch for fast learners.
+      "basics" course, Level 5 is the optional stretch, and Level 6 is Year Two — the soloist's repertoire.
       <b>After class, hit 📤 Share</b> — it makes an image card with the week's goal and homework that you can send
       straight to the class WhatsApp group, and the link opens right back to this lesson.</div>
     <div id="wkList"></div>
@@ -779,6 +858,9 @@ $('#wkList').innerHTML=LEVELS.map(L=>{
       ${w.varnas?`<div class="kidtip" style="margin-top:12px;background:var(--plum-soft)">🗣️ <b style="color:var(--plum)">Bol-groups for this week</b> — drill these until the hands own them:
         ${w.varnas.map(id=>{const v=VARNAS.flatMap(g=>g.items).find(x=>x.id===id);
           return v?`<button class="taallink" style="margin:6px 6px 0 0;background:var(--plum)" onclick="goVarna('${id}')">${v.name}</button>`:'';}).join('')}</div>`:''}
+      ${w.forms?`<div class="kidtip" style="margin-top:12px;background:#f4eef8">📜 <b style="color:var(--plum)">Forms in this week</b> — hear each one:
+        ${w.forms.map(id=>{const f=FORMS.find(x=>x.id===id);
+          return f?`<button class="taallink" style="margin:6px 6px 0 0;background:var(--plum)" onclick="goForm('${id}')">${f.name}</button>`:'';}).join('')}</div>`:''}
       ${w.taal?`<button class="taallink" onclick="goTaal('${w.taal}')">👏 ${TAALS.find(t=>t.id===w.taal).name} notation & play-along</button>`:''}
       ${w.horizon?`<div class="kidtip" style="margin-top:12px">🔭 <b>Taal horizon:</b> ${w.horizon.text}
         ${w.horizon.taals.map(id=>{const t=TAALS.find(x=>x.id===id);return `<button class="taallink" style="margin:6px 6px 0 0" onclick="goTaal('${id}')">${t.name} · ${t.beats} beats</button>`;}).join('')}</div>`:''}
@@ -953,7 +1035,7 @@ const Transport=(()=>{
     clearInterval(tick); tick=null;
     Synth.cancelAfter(Synth.now());
     Synth.drone(false);
-    document.querySelectorAll('.cell.hit').forEach(c=>c.classList.remove('hit'));
+    document.querySelectorAll('[data-cell].hit').forEach(c=>c.classList.remove('hit'));
     document.querySelectorAll('.dot.live').forEach(d=>d.classList.remove('live'));
     document.querySelectorAll('.wheel.on').forEach(w=>w.classList.remove('on'));
     S=null; syncUI(); emit();
@@ -1048,6 +1130,10 @@ function goVarna(id){
   document.querySelector('[data-s="varnas"]').click();
   setTimeout(()=>document.getElementById('varna-'+id)?.scrollIntoView({behavior:'smooth',block:'start'}),60);
 }
+function goForm(id){
+  document.querySelector('[data-s="forms"]').click();
+  setTimeout(()=>document.getElementById('form-'+id)?.scrollIntoView({behavior:'smooth',block:'center'}),60);
+}
 
 /* ================= TEACHER'S GUIDE ================= */
 $('#guideList').innerHTML=GUIDE.map(g=>`
@@ -1116,6 +1202,72 @@ const order={lesson:0,listen:1,teacher:2};
 $('#allVids').innerHTML=Object.keys(VIDEOS)
   .sort((a,b)=>order[VIDEOS[a].tag]-order[VIDEOS[b].tag])
   .map(vidCard).join('');
+
+/* ================= REPERTOIRE (FORMS) ================= */
+const STAGES=[...new Set(FORMS.map(f=>f.stage))];
+$('#formList').innerHTML=STAGES.map(st=>
+  `<div class="stagehdr"><h2>${st}</h2><div class="rule"></div></div>
+   <div class="formgrid">`+
+  FORMS.filter(f=>f.stage===st).map(f=>`
+    <div class="taal" id="form-${f.id}" style="margin:0">
+      <div class="taal-top" style="margin-bottom:6px">
+        <h3 style="font-size:1.18rem">${f.name}</h3>
+        <span class="wkb">Week ${f.week}</span>
+      </div>
+      <div class="mn" style="margin:0 0 8px"><b style="color:var(--saffron)">${f.one}</b></div>
+      <p style="font-size:.92rem">${f.what}</p>
+      <div class="bolstrip">${f.bols.map((b,i)=>
+        `<i data-cell="${f.id}-${i}" class="${i===0?'sam':''}">${b}</i>`).join('')}</div>
+      <p class="mn" style="font-size:.83rem">${f.note}</p>
+      <div class="playbar" style="margin-top:10px">
+        <button class="pbtn fbtn" data-form="${f.id}">▶ Play</button>
+        <label>BPM <input type="number" id="fbpm-${f.id}" value="${f.bpm}" min="30" max="240"></label>
+      </div>
+      <div class="kidtip" style="margin-top:12px;font-size:.9rem"><b>Teaching note:</b> ${f.teach}</div>
+    </div>`).join('')+`</div>`).join('');
+
+document.querySelectorAll('.fbtn').forEach(btn=>btn.onclick=()=>{
+  const id=btn.dataset.form;
+  if(Transport.current()===id){ Transport.isPaused()?Transport.toggle():Transport.stop(); return; }
+  const f=FORMS.find(x=>x.id===id);
+  const bpm=Math.min(240,Math.max(30,+document.getElementById('fbpm-'+id).value||f.bpm));
+  Transport.start({kind:'form',id,name:f.name,tab:'forms',
+    seq:f.bols,mel:null,mode:'theka',bpm,period:60/bpm});
+});
+
+/* layakari — the density ladder */
+$('#layList').innerHTML=LAYAKARI.map(l=>`
+  <div class="tile" style="cursor:default">
+    <div class="lbl" style="color:var(--saffron)">${l.ratio}</div>
+    <h3>${l.name}</h3>
+    <p>${l.short}</p>
+    <div class="playbar" style="margin-top:auto;padding-top:10px">
+      <button class="pbtn lbtn" data-lay="${l.id}">▶ Hear it</button>
+    </div>
+  </div>`).join('');
+document.querySelectorAll('.lbtn').forEach(btn=>btn.onclick=()=>{
+  const id=btn.dataset.lay;
+  if(Transport.current()===id){ Transport.stop(); return; }
+  const l=LAYAKARI.find(x=>x.id===id);
+  /* the matra pulse stays fixed; density is what changes */
+  const period=(60/l.bpm)/l.per;
+  Transport.start({kind:'laya',id,name:l.name+' ('+l.ratio+')',tab:'forms',
+    seq:l.bols,mel:null,mode:'theka',bpm:l.bpm,period});
+});
+
+$('#jaatiList').innerHTML=JAATI.map(j=>`
+  <div class="tile" style="cursor:default">
+    <div class="big" style="color:var(--teal)">${j.n}</div>
+    <h3>${j.name}</h3>
+    <p style="font-family:'Fraunces',serif;color:var(--ink);font-size:.9rem">${j.say}</p>
+    <p>${j.note}</p>
+  </div>`).join('');
+
+$('#arcList').innerHTML=SOLO_ARC.map(a=>`
+  <div class="tile" style="cursor:default">
+    <div class="lbl" style="color:var(--plum)">Step ${a.n}</div>
+    <h3>${a.form}</h3><p>${a.why}</p>
+  </div>`).join('');
 
 /* ================= SHARE CARDS =================
    After a class the teacher shares what was covered. WhatsApp renders an
@@ -1516,7 +1668,7 @@ function renderLog(){
 renderLog();
 
 /* ================= CHECKLIST ================= */
-const lvlColors={1:'saffron',2:'plum',3:'teal',4:'saffron',5:'gold'};
+const lvlColors={1:'saffron',2:'plum',3:'teal',4:'saffron',5:'gold',6:'plum'};
 $('#ckList').innerHTML=CHECKLIST.map((c,i)=>
   `<label><input type="checkbox" data-i="${i}"> ${c.text}
      <span class="lvltag lvlbadge ${lvlColors[c.level]}">L${c.level}</span></label>`).join('');
@@ -1524,6 +1676,122 @@ const saved=JSON.parse(localStorage.getItem('tablaCk')||'[]');
 document.querySelectorAll('#ckList input').forEach(cb=>{
   cb.checked=!!saved[cb.dataset.i];
   cb.onchange=()=>{saved[cb.dataset.i]=cb.checked;localStorage.setItem('tablaCk',JSON.stringify(saved));};
+});
+
+/* ================= HOME — BENTO DASHBOARD ================= */
+const CURKEY='tablaWeek';
+const curWeek=()=>Math.min(32,Math.max(1,+localStorage.getItem(CURKEY)||1));
+function setWeek(n){ localStorage.setItem(CURKEY,Math.min(32,Math.max(1,n))); renderBento(); }
+
+function renderBento(){
+  const w=WEEKS.find(x=>x.n===curWeek())||WEEKS[0];
+  const L=LEVELS.find(l=>l.n===w.level);
+  const s=streak();
+  const days=Object.keys(log).length;
+  const t=today();
+  const doneToday=!!log[iso(t)];
+  const ck=JSON.parse(localStorage.getItem('tablaCk')||'[]').filter(Boolean).length;
+  // last 14 days sparkline
+  let spark='';
+  for(let i=13;i>=0;i--){ const d=addDays(t,-i), m=log[iso(d)]||0;
+    spark+=`<i class="${m?'on':''}" style="height:${m?Math.min(34,10+m):3}px"></i>`; }
+  const tl=TAALS.find(x=>x.id===(w.taal||'teentaal'))||TAALS[0];
+
+  $('#bento').innerHTML=`
+    <button class="tile saff t-w4" onclick="document.querySelector('[data-s=weeks]').click();openHash('#week-${w.n}')">
+      <div class="lbl">Continue · Level ${w.level} · ${L?L.name:''}</div>
+      <h3 style="font-size:1.7rem;font-family:'Fraunces',serif">${w.emoji} Week ${w.n} — ${w.title}</h3>
+      <p>${w.goal}</p>
+      <div class="tilerow"><span class="lbl">Open this week →</span></div>
+    </button>
+
+    <button class="tile dark t-w2" onclick="document.querySelector('[data-s=progress]').click()">
+      <div class="ico">🔥</div>
+      <div class="big">${s.cur}</div>
+      <div class="lbl">day streak</div>
+      <div class="sparks">${spark}</div>
+      <p style="font-size:.78rem">${doneToday?'✓ Practised today':'Not logged today'}</p>
+    </button>
+
+    <button class="tile t-w2" onclick="document.querySelector('[data-s=taals]').click();setTimeout(()=>document.querySelector('.pbtn[data-taal=\\'${tl.id}\\']').click(),300)">
+      <div class="ico">👏</div>
+      <h3>Play ${tl.name}</h3>
+      <p>${tl.beats} beats · ${tl.vibhag}</p>
+      <div class="minibeats">${Array.from({length:Math.min(16,tl.beats)},(_,i)=>`<i class="${i===0?'on':''}"></i>`).join('')}</div>
+    </button>
+
+    <button class="tile tealt t-w2" onclick="document.querySelector('[data-s=play]').click()">
+      <div class="ico">🥁</div>
+      <h3>Practice tabla</h3>
+      <p>Tap the drums, pads or keyboard — real strokes, zone by zone.</p>
+    </button>
+
+    <button class="tile plumt t-w2" onclick="document.querySelector('[data-s=forms]').click()">
+      <div class="ico">📜</div>
+      <h3>Repertoire</h3>
+      <p>${FORMS.length} forms — kaida, rela, tukda, chakradar, peshkar and more.</p>
+    </button>
+
+    <button class="tile t-w2" onclick="document.querySelector('[data-s=varnas]').click()">
+      <div class="ico">🗣️</div>
+      <div class="big" style="color:var(--plum)">${VARNAS.flatMap(g=>g.items).length}</div>
+      <div class="lbl">bol-groups</div>
+      <p>The words between single bols and full taals.</p>
+    </button>
+
+    <button class="tile t-w2" onclick="document.querySelector('[data-s=taals]').click()">
+      <div class="ico">🎼</div>
+      <div class="big" style="color:var(--saffron)">${TAALS.length}</div>
+      <div class="lbl">taals notated</div>
+      <p>All playable, with lehra and cycle wheel.</p>
+    </button>
+
+    <button class="tile t-w2" onclick="document.querySelector('[data-s=videos]').click()">
+      <div class="ico">🎬</div>
+      <div class="big" style="color:var(--teal)">${Object.keys(VIDEOS).length}</div>
+      <div class="lbl">video lessons</div>
+      <p>Verified and grouped by week.</p>
+    </button>
+
+    <button class="tile goldt t-w3" onclick="document.querySelector('[data-s=teach]').click()">
+      <div class="ico">📖</div>
+      <h3>Teacher's guide</h3>
+      <p>Riyaaz routine, troubleshooting, counting on the hand, notes for parents,
+         instrument care and the gharanas.</p>
+    </button>
+
+    <button class="tile t-w3" onclick="document.querySelector('[data-s=weeks]').click()">
+      <div class="ico">🎓</div>
+      <h3>The journey · ${WEEKS.length} weeks</h3>
+      <p>${LEVELS.map(l=>l.name).join(' → ')}</p>
+      <div class="tilerow"><span class="lbl" style="color:var(--saffron)">${ck}/${CHECKLIST.length} skills ticked</span></div>
+    </button>
+
+    <div class="tile t-w6" style="cursor:default;flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px">
+      <div style="flex:1;min-width:200px">
+        <div class="lbl" style="color:var(--soft)">Set where the class is</div>
+        <h3>Currently teaching Week ${w.n}</h3>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="barbtn ghost2" onclick="setWeek(${w.n-1})" ${w.n<=1?'disabled':''}>◀ Back</button>
+        <button class="barbtn" onclick="setWeek(${w.n+1})" ${w.n>=32?'disabled':''}>Next week ▶</button>
+      </div>
+    </div>`;
+}
+renderBento();
+
+$('#heroStats').innerHTML=[
+  [WEEKS.length,'weeks'],
+  [VARNAS.flatMap(g=>g.items).length,'bol-groups'],
+  [TAALS.length,'taals'],
+  [FORMS.length,'forms'],
+  [Object.keys(VIDEOS).length,'videos']
+].map(([n,l])=>`<div class="hstat"><b>${n}</b><span>${l}</span></div>`).join('');
+
+/* keep the dashboard honest when the log or checklist changes */
+document.addEventListener('click',e=>{
+  if(e.target.closest('#ckList')||e.target.closest('#doneBtn')||e.target.closest('#undoBtn'))
+    setTimeout(renderBento,60);
 });
 
 /* a shared link lands on exactly the lesson it points at */

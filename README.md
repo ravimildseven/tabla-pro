@@ -8,13 +8,20 @@ built as a single shareable web page. Companion project to [laya-kosh](https://g
 
 ## What's inside
 
-**Teaching path: bols (letters) → bol-groups (words) → taals (sentences).** A theka is never
-memorised beat by beat; it is assembled from small groups the hands already own.
+**Teaching path: bols (letters) → bol-groups (words) → taals (sentences) → repertoire.**
+A theka is never memorised beat by beat; it is assembled from small groups the hands already own.
 
-- **📅 Weekly Plan** — 20 expandable week cards in 5 levels (Hands & Sounds → Bol-Groups →
-  The Language of Rhythm → Taal Toolkit → optional Beyond Basics: dugun, tihai, rela,
-  accompaniment). Each card has a goal, concepts, a class plan, measurable drills, homework,
-  a teacher tip, its bol-groups and that week's reference videos.
+- **🏠 Home** — a bento-tile dashboard: where the class currently is, the practice streak,
+  one-tap play, and counts across the whole course. A week tracker moves the class forward.
+- **📅 Weekly Plan** — 32 expandable week cards in 6 levels (Hands & Sounds → Bol-Groups →
+  The Language of Rhythm → Taal Toolkit → optional Beyond Basics → **Year Two: The Soloist's
+  Path**). Each card has a goal, concepts, a class plan, measurable drills, homework, a
+  teacher tip, its bol-groups and forms, and that week's reference videos.
+- **📜 Repertoire** — the 13 forms a tabla player actually learns, grouped by the stage of a
+  solo: theka, kaida, palta, tihai, rela, mukhda, tukda, chakradar, peshkar, uthan, gat,
+  paran and laggi. Each is playable, with what it trains and a teaching note. Plus
+  **layakari** (ekgun → chaugun and aad), the five **jaati** divisions, and the arc of a
+  full solo from uthan to closing chakradar.
 - **🗣️ Bol-Groups (Varnas)** — 20 groups in four families (2-, 3-, 4-syllable and long
   chains), all playable, each naming what it trains, how to play it, and — crucially — a
   **builds into** link to the exact beats of the taal it forms (e.g. `Dha Dhin Na` → Dadra
@@ -42,8 +49,8 @@ memorised beat by beat; it is assembled from small groups the hands already own.
   so it lands in a WhatsApp group as an image. On desktop it saves the PNG and opens
   WhatsApp Web with the caption prefilled. Every card carries a deep link
   (`#week-6`, `#taal-teentaal`, `#varna-takita`) that opens the app straight to that lesson.
-- **🎓 Graduation checklist** — 17 level-tagged tick boxes (saved in the browser);
-  Levels 1–4 ticked = knows the basics.
+- **🎓 Graduation checklist** — 26 level-tagged tick boxes (saved in the browser);
+  Levels 1–4 ticked = knows the basics, Level 6 = performs a solo.
 - **🔤 Bols** — the tabla alphabet reference; press ▶ on any row to hear the stroke.
 - **🥁 Play** — a practice tabla simulator: tap the drawn drums (chaat/maidan/syahi zones
   each make their real stroke), or use pads / keyboard keys. Volume and dayan-pitch controls.
@@ -68,6 +75,18 @@ in a `samples/` folder next to `index.html` — they are detected and used autom
 4. Use the daily riyaaz routine in the **Teach** tab as the shape of home practice.
 5. Weeks 5–8 are the ones not to rush: bol-groups are what make Weeks 10–16 easy.
 6. Week 16 ends with a mini recital and the graduation checklist; Weeks 17–20 are optional.
+7. Weeks 21–32 are Year Two — kaida and paltas, tihai types, rela, tukda, chakradar,
+   peshkar, layakari, jaati, laggi, and finally assembling a complete solo.
+
+## Local development
+
+```bash
+/opt/homebrew/bin/python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`. Serving over http (rather than opening the file directly)
+is what lets YouTube embeds play inline and `samples/*.mp3` load. The same config is in
+`.claude/launch.json`.
 
 ## Files
 

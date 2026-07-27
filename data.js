@@ -414,6 +414,151 @@ const TAALS = [
   }
 ];
 
+/* ============ FORMS — THE REPERTOIRE ============
+   What a tabla player actually learns, in the order a solo presents them.
+   `bols` is one entry per pulse (playable); `pulse` = pulses per matra.
+   These are teaching versions — every gharana has its own wording.        */
+const FORMS = [
+  {
+    id:'theka', name:'Theka', stage:'Foundation', week:10, pulse:1, bpm:80,
+    one:'The time-keeping pattern of a taal.',
+    what:'The theka is the plain, repeating face of a taal — what an accompanist plays while a singer sings. Every other form is measured against it.',
+    bols:['Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha','Dha','Tin','Tin','Ta','Ta','Dhin','Dhin','Dha'],
+    note:'Teentaal theka, one bol per matra.',
+    teach:'Learned first and never outgrown. A player who can hold a steady theka for ten minutes behind a singer is already useful; everything else is decoration on top of that skill.'
+  },
+  {
+    id:'kaida', name:'Kaida', stage:'Core grammar', week:21, pulse:2, bpm:100,
+    one:'A theme whose variations must obey its own vocabulary.',
+    what:'The heart of tabla learning. A kaida ("rule") states a theme, then grows variations (paltas) using only the bols already in the theme — no new syllables allowed. It ends with a tihai and is answered by a khali version with the bass removed.',
+    bols:['Dha','Dha','Ti','Te','Dha','Dha','Tun','Na','Ta','Ta','Ti','Te','Dha','Dha','Dhin','Na'],
+    note:'The classic Delhi kaida — 16 bols across 8 matras (dugun in Teentaal).',
+    teach:'This is where tabla becomes a language rather than a set of patterns. The rule that variations may only reuse the theme\'s own bols is exactly what makes it a grammar: infinite sentences, fixed alphabet.'
+  },
+  {
+    id:'palta', name:'Palta (Paltas)', stage:'Core grammar', week:22, pulse:2, bpm:100,
+    one:'The systematic permutations of a kaida.',
+    what:'Paltas are the worked variations of a kaida — expansions produced by repeating, reordering and displacing fragments of the theme. A traditional kaida carries anywhere from six to sixty.',
+    bols:['Dha','Dha','Ti','Te','Dha','Dha','Ti','Te','Dha','Dha','Tun','Na','Ta','Ta','Ti','Te'],
+    note:'Palta 1 — the opening pair doubled before the theme resumes.',
+    teach:'Paltas are how a student learns to compose rather than copy. Give the rule, not the list: "double the first fragment", "start from the second bol", "play the khali half first".'
+  },
+  {
+    id:'tihai', name:'Tihai', stage:'Core grammar', week:23, pulse:2, bpm:100,
+    one:'A phrase played three times, landing exactly on sam.',
+    what:'Tabla\'s cadence. Any phrase repeated three times so the final stroke lands on beat 1. A damdar tihai leaves a breath (dum) between repetitions; a bedam tihai runs them together with no gap at all.',
+    bols:['Dha','TiRaKiTa','Dhin','Na','Dha','–','Dha','TiRaKiTa','Dhin','Na','Dha','–','Dha','TiRaKiTa','Dhin','Na','Dha'],
+    note:'A damdar tihai — the rest is the "dum" between repetitions.',
+    teach:'The maths is the music here: count backwards from sam to find where the tihai must begin. Children who enjoy puzzles fall in love with tabla at exactly this point.'
+  },
+  {
+    id:'rela', name:'Rela', stage:'Speed', week:24, pulse:4, bpm:110,
+    one:'A fast, rolling, continuous texture.',
+    what:'A rela is built like a kaida but from bols that flow rather than strike — the aim is a rolling stream of sound, not articulated syllables. Traditionally played at speed with variations of its own.',
+    bols:['Dha','Ti','Ra','Ki','Ta','Ta','Ki','Ta','Dha','Ti','Ra','Ki','Ta','Ta','Ki','Ta'],
+    note:'A basic tirakita rela — the workhorse of every practice session.',
+    teach:'Speed is a by-product of relaxation, never of force. Practise a rela at a tempo where every stroke is even, then raise it by five BPM at a time.'
+  },
+  {
+    id:'mukhda', name:'Mukhda', stage:'Fixed compositions', week:25, pulse:2, bpm:100,
+    one:'A short phrase that runs into sam.',
+    what:'A "face" — a brief flourish, often only two or three matras, that leads the ear into beat 1. Used constantly in accompaniment to mark the return of a song\'s refrain.',
+    bols:['Dha','Ge','Na','Dha','TiRaKiTa','Dha'],
+    note:'A short mukhda landing on sam.',
+    teach:'The first thing a student can use in real music. Teach it as a greeting: something small and confident said just before arriving.'
+  },
+  {
+    id:'tukda', name:'Tukda', stage:'Fixed compositions', week:25, pulse:2, bpm:100,
+    one:'A short fixed composition ending on sam.',
+    what:'A "piece" — a composed, unvaried phrase, typically one avartan or less, ending with a tihai on sam. Unlike a kaida it is never expanded; it is played as written.',
+    bols:['Dha','TiRaKiTa','Dhin','Na','Dha','Ge','Na','Dha','Ta','TiRaKiTa','Dhin','Na','Dha','–','Dha','–'],
+    note:'A simple tukda closing on sam.',
+    teach:'Tukdas are the student\'s first repertoire — the things they can actually perform. Memorise a few properly rather than many roughly.'
+  },
+  {
+    id:'chakradar', name:'Chakradar', stage:'Fixed compositions', week:26, pulse:2, bpm:100,
+    one:'A composition played three times, each ending in a tihai.',
+    what:'A "wheel". The whole phrase — itself containing a tihai — is played three times, so the final stroke arrives on sam after nine inner repetitions. The grandest way to end a solo.',
+    bols:['Dha','TiRaKiTa','Dha','Ge','Na','Dha','Dha','TiRaKiTa','Dha','–','Dha','TiRaKiTa','Dha','Ge','Na','Dha'],
+    note:'One cycle of a chakradar — played three times in performance.',
+    teach:'When a chakradar lands, audiences shout. Explain the 3×3 architecture on paper first; the thrill is in hearing a structure you understood.'
+  },
+  {
+    id:'peshkar', name:'Peshkar', stage:'Solo opening', week:27, pulse:2, bpm:70,
+    one:'The exploratory opening of a solo.',
+    what:'"Presentation" — the piece that opens a traditional solo. Slower and more elastic than a kaida, it introduces the taal and gradually unfolds ideas, setting the mood before the grammar begins.',
+    bols:['Dha','–','Dhin','–','Dha','Ge','Ti','Ta','Ka','Ta','Dha','Ge','Dhin','–','Dha','–'],
+    note:'A peshkar phrase in Teentaal, played with space and rubato.',
+    teach:'The one form deliberately not played strictly. Teach it late, once a student has enough control to relax — peshkar sounds wrong when it sounds careful.'
+  },
+  {
+    id:'uthan', name:'Uthan', stage:'Solo opening', week:27, pulse:2, bpm:90,
+    one:'The lift that begins a performance.',
+    what:'An opening flourish that "raises" the solo out of silence, announcing the taal and arriving decisively on sam so the lehra can begin.',
+    bols:['Dha','TiRaKiTa','Dha','TiRaKiTa','Dha','Ge','Na','Dha','–','Dha','–','Dha'],
+    note:'A short uthan into sam.',
+    teach:'Frame it as the moment the audience stops talking. Confidence matters more than complexity.'
+  },
+  {
+    id:'gat', name:'Gat', stage:'Advanced repertoire', week:28, pulse:2, bpm:100,
+    one:'A fixed composition with no variations.',
+    what:'An instrumental composition, strongest in the Punjab and Farukhabad gharanas. Unlike a kaida it has no rule of expansion — a gat is a finished statement, often with unusual, asymmetrical phrasing.',
+    bols:['Dha','Ge','Na','Dha','Ti','Ta','Ka','Ta','Dha','Ge','Dhin','Na','Ge','Na','Dha','–'],
+    note:'A short gat phrase.',
+    teach:'Gats teach a different musical instinct from kaidas: shape and surprise rather than systematic growth.'
+  },
+  {
+    id:'paran', name:'Paran', stage:'Advanced repertoire', week:28, pulse:2, bpm:95,
+    one:'A heavy composition drawn from the pakhawaj.',
+    what:'Parans use open, powerful pakhawaj bols and belong to the dhrupad world. They are weighty and declamatory, often devotional in origin, and are used to add gravity to a solo.',
+    bols:['Dha','Ge','Na','Dha','Ge','TiRaKiTa','Dha','Ge','Na','Dha','–','Dha','Ge','Na','Dha','–'],
+    note:'A paran built on open dha-ge-na bols.',
+    teach:'Volume and openness, not speed. Parans should sound like an announcement.'
+  },
+  {
+    id:'laggi', name:'Laggi / Ladi', stage:'Accompaniment', week:31, pulse:4, bpm:120,
+    one:'Fast light patterns for thumri, bhajan and dadra.',
+    what:'When a light-classical song reaches its playful section, the tabla breaks into laggi — quick, repetitive, dance-like figures over Keherwa or Dadra that lift the energy without ever obscuring the singer.',
+    bols:['Dhin','Na','Ge','Na','Dhin','Na','Ge','Na','Ta','Ki','Ta','Ta','Ki','Ta','Dhin','Na'],
+    note:'A Keherwa laggi figure.',
+    teach:'The most immediately useful advanced skill for a young player — laggi is what makes a bhajan session come alive, and family audiences respond to it instantly.'
+  }
+];
+
+/* ============ LAYAKARI — THE MATHS OF SPEED ============
+   Same clap, different density. This is the intellectual core of tabla.  */
+const LAYAKARI = [
+  { id:'ekgun',   name:'Ekgun',   ratio:'1×',  short:'One bol per matra — the plain speed.',
+    bols:['Dha','Dhin','Dhin','Dha'], per:1, bpm:70 },
+  { id:'dugun',   name:'Dugun',   ratio:'2×',  short:'Two bols per matra — double density, same clap.',
+    bols:['Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha'], per:2, bpm:70 },
+  { id:'tigun',   name:'Tigun',   ratio:'3×',  short:'Three bols per matra — a three-feel over a four-beat frame.',
+    bols:['Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha'], per:3, bpm:70 },
+  { id:'chaugun', name:'Chaugun', ratio:'4×',  short:'Four bols per matra — the classic climax density.',
+    bols:['Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha','Dha','Dhin','Dhin','Dha'], per:4, bpm:70 },
+  { id:'aad',     name:'Aad',     ratio:'1½×', short:'Three bols in the space of two — the first "odd" laya.',
+    bols:['Dha','Dhin','Dhin','Dha','Dha','Dhin'], per:1.5, bpm:70 }
+];
+
+const JAATI = [
+  { name:'Tisra',    n:3, say:'ta-ki-ta',            note:'Three per beat — a waltzing lilt.' },
+  { name:'Chatusra', n:4, say:'ta-ka-dhi-mi',        note:'Four per beat — the default of Hindustani rhythm.' },
+  { name:'Khanda',   n:5, say:'ta-ka-ta-ki-ta',      note:'Five per beat — lopsided and exciting.' },
+  { name:'Mishra',   n:7, say:'ta-ki-ta-ta-ka-dhi-mi', note:'Seven per beat — 3+4 combined.' },
+  { name:'Sankirna', n:9, say:'ta-ka-dhi-mi-ta-ki-ta-ta-ka', note:'Nine per beat — advanced territory.' }
+];
+
+/* ============ THE ARC OF A TABLA SOLO ============ */
+const SOLO_ARC = [
+  { n:1, form:'Uthan',      why:'Announces the taal and lifts the performance out of silence.' },
+  { n:2, form:'Peshkar',    why:'Opens slowly and elastically, establishing mood and the cycle.' },
+  { n:3, form:'Kaida',      why:'The grammar section — theme, paltas, and a tihai to close.' },
+  { n:4, form:'Rela',       why:'Density and speed increase; the texture becomes a roll.' },
+  { n:5, form:'Tukda / Gat',why:'Short fixed compositions, each landing cleanly on sam.' },
+  { n:6, form:'Paran',      why:'Weight and grandeur borrowed from the pakhawaj tradition.' },
+  { n:7, form:'Chakradar',  why:'The 3×3 finale — the structure audiences applaud.' }
+];
+
 /* ============ LEHRA / NAGMA ============
    A lehra is the short melodic loop (traditionally sarangi or harmonium) that
    repeats exactly one cycle of the taal, so a tabla player always knows where
@@ -438,7 +583,8 @@ const LEVELS = [
   { n: 2, name: 'Bol-Groups (Varnas)',       weeks: [5,8],   color: 'plum',    desc: 'The bridge: drill little words like Ta Ki Ta and Dhi Ki Ta until the hands own them.' },
   { n: 3, name: 'The Language of Rhythm',    weeks: [9,11],  color: 'teal',    desc: 'Matra, sam, tali, khali — then the first theka, assembled from words already known.' },
   { n: 4, name: 'Taal Toolkit',              weeks: [12,16], color: 'saffron', desc: 'One new taal each week: Keherwa, Dadra, Jhaptaal, Rupak, Ektaal.' },
-  { n: 5, name: 'Beyond Basics (optional)',  weeks: [17,20], color: 'gold',    desc: 'For kids who finish early or want more: dugun, tihai, rela and real accompaniment.' }
+  { n: 5, name: 'Beyond Basics (optional)',  weeks: [17,20], color: 'gold',    desc: 'For kids who finish early or want more: dugun, tihai, rela and real accompaniment.' },
+  { n: 6, name: 'Year Two — The Soloist\'s Path', weeks: [21,32], color: 'plum', desc: 'The real repertoire: kaida and paltas, rela, tukda, chakradar, peshkar, layakari and a full solo.' }
 ];
 
 /* ============ 16-WEEK LESSON PLAN ============ */
@@ -762,6 +908,188 @@ const WEEKS = [
     tip: 'End the course pointing forward: a kid who can hold Keherwa steady behind a singer is already useful at every family gathering — instant motivation for years of riyaaz.',
     videos: ['fullCourse','keherwaDas','zakirTeentaal'],
     horizon: { text: 'The road ahead — the vilambit and dhrupad giants waiting in the reference:', taals: ['jhumra','dhamar','deepchandi'] }
+  },
+
+  /* ---------- YEAR TWO — from player to soloist ---------- */
+  {
+    n: 21, title: 'The Kaida — Tabla\'s Grammar', emoji: '📜', level: 6,
+    goal: 'Learn the classic Delhi kaida and understand why its rule matters.',
+    learn: ['Kaida = theme + rule-bound variations', 'Dha Dha Ti Te | Dha Dha Tun Na | Ta Ta Ti Te | Dha Dha Dhin Na', 'Bhari (full) and khali (bass removed) halves'],
+    plan: [
+      'Speak the theme until it is effortless — padhant before hands, always.',
+      'Play it at 60 BPM in dugun against the Teentaal lehra.',
+      'Show the khali half: same bols, bayan silent. The pair is the whole kaida.',
+      'State the rule out loud: variations may use ONLY the bols already in the theme.'
+    ],
+    drills: ['Theme ×10 perfectly even', 'Khali half ×10', 'Theme + khali as one 16-matra statement ×5'],
+    homework: 'Kaida theme and khali half, ten times each daily, at one unchanging speed.',
+    tip: 'The no-new-bols rule is what makes tabla a language rather than a list of patterns. Say it in week one of year two and repeat it for years.',
+    videos: ['kayda1','kaidaTite','tirakita'], forms: ['kaida']
+  },
+  {
+    n: 22, title: 'Paltas — Learning to Compose', emoji: '🧬', level: 6,
+    goal: 'Generate variations systematically instead of memorising them.',
+    learn: ['Palta = a worked variation of the kaida', 'Doubling, reordering and displacing fragments', 'Every palta ends by returning to the theme'],
+    plan: [
+      'Teach palta 1 (double the opening pair), then have the student find palta 2 themselves.',
+      'Give rules, not lists: "start from the second bol", "double the third fragment".',
+      'Check every invention against the rule — did any new bol sneak in?',
+      'Chain theme → palta → theme so the shape stays audible.'
+    ],
+    drills: ['Three taught paltas ×5 each', 'Two self-composed paltas, played cleanly ×5', 'Theme→palta→theme chain ×5'],
+    homework: 'Invent one new palta a day and be able to play it twice identically.',
+    tip: 'This is the week a student stops being a copier. Praise a lawful but ugly palta more than a beautiful one that breaks the rule.',
+    videos: ['kayda1','relaPalta'], forms: ['palta','kaida']
+  },
+  {
+    n: 23, title: 'Tihai — Damdar & Bedam', emoji: '✨', level: 6,
+    goal: 'Compose and land both kinds of tihai on sam.',
+    learn: ['Damdar = with a breath between repetitions', 'Bedam = no gap, run together', 'Counting backwards from sam'],
+    plan: [
+      'Revise the simple tihai from Week 18, then name its type: damdar.',
+      'Introduce bedam — same phrase, gaps removed. The maths changes completely.',
+      'Work an example on paper: count backwards from sam to find the entry point.',
+      'Close the kaida with a tihai — the traditional ending.'
+    ],
+    drills: ['Damdar tihai ×5 clean landings', 'Bedam tihai ×5 clean landings', 'Kaida → tihai → sam ×3'],
+    homework: 'Five landed tihais a day, alternating damdar and bedam.',
+    tip: 'Have them work the arithmetic on paper before playing. A tihai that lands by luck teaches nothing; one that lands by calculation teaches everything.',
+    videos: ['tihaiLesson','tihaiKayda'], forms: ['tihai']
+  },
+  {
+    n: 24, title: 'Rela — the Rolling Form', emoji: '🌊', level: 6,
+    goal: 'Play a rela as a continuous texture rather than separate strokes.',
+    learn: ['Rela = kaida structure, flowing bols', 'Dha Ti Ra Ki Ta Ta Ki Ta', 'Evenness is the whole technique'],
+    plan: [
+      'Contrast: play the kaida (articulated), then the rela (rolling). Let them hear the difference.',
+      'Build the cell at 60 BPM, then climb by 5 BPM only while it stays even.',
+      'Apply one kaida palta idea to the rela — the structures rhyme.',
+      'Record and listen back: are all four strokes the same weight?'
+    ],
+    drills: ['Rela cell at 60/70/80/90 BPM, 1 min each', 'Two-minute endurance roll without tension', 'Rela with a tihai ending ×3'],
+    homework: 'The BPM ladder daily. Stop while it still sounds good, not when the hands give out.',
+    tip: 'Watch the shoulders. The moment they rise, the speed is false — drop 20 BPM and rebuild.',
+    videos: ['relaPalta','tirakita','geGheTete'], forms: ['rela']
+  },
+  {
+    n: 25, title: 'Tukda & Mukhda', emoji: '🎯', level: 6,
+    goal: 'Learn fixed compositions and use them in real accompaniment.',
+    learn: ['Mukhda = short phrase leading into sam', 'Tukda = short composed piece ending on sam', 'Fixed forms are never varied'],
+    plan: [
+      'Teach one mukhda and use it immediately while someone sings — that is its real job.',
+      'Teach one tukda properly: memorised exactly, played identically every time.',
+      'Discuss the difference from kaida: these are statements, not systems.',
+      'Perform the tukda standing alone, as a small piece.'
+    ],
+    drills: ['Mukhda into sam ×10', 'Tukda from memory ×5, identical each time', 'Song + mukhda at each refrain'],
+    homework: 'One tukda memorised to performance standard by the end of the week.',
+    tip: 'Tukdas are a student\'s first real repertoire — the things they can actually play when someone says "play something".',
+    videos: ['tihaiKayda','kayda1'], forms: ['tukda','mukhda']
+  },
+  {
+    n: 26, title: 'Chakradar — the Wheel', emoji: '🎡', level: 6,
+    goal: 'Play a chakradar and understand its 3×3 architecture.',
+    learn: ['A phrase containing a tihai, played three times', 'Nine inner repetitions landing on sam', 'The traditional finale'],
+    plan: [
+      'Draw it before playing it: three boxes, each with three inner boxes.',
+      'Learn one cycle thoroughly, then chain all three.',
+      'Count aloud through the whole thing once — proof that it lands.',
+      'Play it as the ending of the kaida section.'
+    ],
+    drills: ['One cycle ×10', 'Full three-cycle chakradar ×3, landing exactly', 'Kaida → tihai → chakradar sequence'],
+    homework: 'The full chakradar once a day, counted, until the landing is never in doubt.',
+    tip: 'The 3×3 structure is why audiences shout at the end. Explain it first — the thrill is hearing a shape you understood.',
+    videos: ['tihaiKayda','zakirTeentaal'], forms: ['chakradar']
+  },
+  {
+    n: 27, title: 'Peshkar & Uthan — Opening a Solo', emoji: '🎭', level: 6,
+    goal: 'Open a performance with an uthan and unfold a peshkar.',
+    learn: ['Uthan lifts the solo out of silence', 'Peshkar explores slowly and elastically', 'Playing with space, not filling it'],
+    plan: [
+      'Teach the uthan first — short, confident, arriving on sam.',
+      'Peshkar next: play a phrase, leave a silence, answer it. Resist filling the gaps.',
+      'Listen to a master\'s solo opening and count the silences.',
+      'Have the student open a mini-solo in front of the class.'
+    ],
+    drills: ['Uthan into sam ×10', 'Peshkar phrase + silence + answer ×5', 'Uthan → peshkar → kaida transition ×3'],
+    homework: 'Practise opening: uthan, then two minutes of unhurried peshkar, every day.',
+    tip: 'Peshkar is the one form that must not sound careful. Teach it only once technique is secure enough to relax.',
+    videos: ['zakirTeentaal','ishaanRupak'], forms: ['peshkar','uthan']
+  },
+  {
+    n: 28, title: 'Gat & Paran', emoji: '🏛️', level: 6,
+    goal: 'Learn a gat and a paran — the weightier fixed forms.',
+    learn: ['Gat = fixed composition, asymmetric phrasing', 'Paran = pakhawaj-derived, open and powerful', 'Different gharanas, different instincts'],
+    plan: [
+      'Teach the gat: note how its phrasing refuses to be square.',
+      'Teach the paran with open dha-ge-na bols — full volume, full resonance.',
+      'Compare with the kaida: systems versus statements.',
+      'Talk gharanas — Punjab and Farukhabad for gats, Benares for parans.'
+    ],
+    drills: ['Gat from memory ×5', 'Paran at full open volume ×5', 'Gat and paran back to back, contrasting the touch'],
+    homework: 'One gat and one paran memorised; play them for someone at home.',
+    tip: 'Parans should sound like an announcement, not a flourish. If it is quiet, it is wrong.',
+    videos: ['chautalPakhawaj','dhamarPakhawaj','sultaalRela'], forms: ['gat','paran']
+  },
+  {
+    n: 29, title: 'Layakari — Tigun, Chaugun, Aad', emoji: '🔢', level: 6,
+    goal: 'Change density without changing the clap.',
+    learn: ['Ekgun · Dugun · Tigun · Chaugun', 'Aad = three in the space of two', 'The clap never moves'],
+    plan: [
+      'Clap steadily and speak the theka in each gun — mouth before hands.',
+      'Play the ladder: ekgun → dugun → tigun → chaugun → back down.',
+      'Introduce aad; it will feel wrong for days. That is correct.',
+      'Switch on command mid-cycle without losing sam.'
+    ],
+    drills: ['Full gun ladder up and down ×3', 'Tigun held for four avartans', 'Switch-on-command: 10 changes, no lost sam'],
+    homework: 'Two minutes each of tigun and chaugun daily, always against a lehra.',
+    tip: 'Layakari is the intellectual heart of tabla. A student who feels tigun in the body has crossed into real musicianship.',
+    videos: ['rupakDetail','keherwaFast'], forms: ['kaida']
+  },
+  {
+    n: 30, title: 'Jaati — Dividing the Beat', emoji: '🧮', level: 6,
+    goal: 'Feel 3, 4, 5 and 7 subdivisions of a single beat.',
+    learn: ['Tisra 3 · Chatusra 4 · Khanda 5 · Mishra 7', 'Spoken solkattu syllables', 'Switching jaati mid-cycle'],
+    plan: [
+      'Clap one steady pulse and speak each jaati over it — ta-ki-ta, ta-ka-dhi-mi, and so on.',
+      'Play each jaati on the drum, one beat at a time.',
+      'Khanda (5) is the wall; spend most of the week there.',
+      'Try a phrase in tisra answered in chatusra.'
+    ],
+    drills: ['Each jaati spoken ×10 over a steady clap', 'Tisra and chatusra alternating ×10', 'Khanda held for eight beats'],
+    homework: 'Speak the jaati syllables daily — walking, not sitting. The hands follow later.',
+    tip: 'Borrowed vocabulary from the Carnatic side, and worth every minute. Students who drill jaati stop fearing odd time signatures for life.',
+    videos: ['tirakita','fullCourse'], forms: ['rela']
+  },
+  {
+    n: 31, title: 'Laggi & Light Accompaniment', emoji: '💃', level: 6,
+    goal: 'Play laggi behind thumri, bhajan and dadra.',
+    learn: ['Laggi = fast light figures over Keherwa/Dadra', 'Lifting energy without covering the singer', 'When to start and when to stop'],
+    plan: [
+      'Teach the Keherwa laggi figure slowly, then bring it to speed.',
+      'Play behind an actual song: theka for the verse, laggi for the playful section.',
+      'Practise the hardest part — stopping, and returning to plain theka.',
+      'Discuss volume: the singer must always win.'
+    ],
+    drills: ['Laggi figure ×10 at speed', 'Theka → laggi → theka transitions ×5', 'Full song with one laggi section'],
+    homework: 'Accompany one bhajan a day, using laggi exactly once.',
+    tip: 'The most immediately useful advanced skill a young player has — laggi is what makes a family bhajan session come alive.',
+    videos: ['dadraLaggi','dadraFull','relaPalta'], forms: ['laggi']
+  },
+  {
+    n: 32, title: 'Building a Full Solo', emoji: '👑', level: 6,
+    goal: 'Assemble everything into a performed tabla solo.',
+    learn: ['The traditional arc: uthan → peshkar → kaida → rela → tukda → paran → chakradar', 'Pacing and building intensity', 'Playing with a lehra'],
+    plan: [
+      'Map the arc on paper; the student chooses which of their pieces fills each slot.',
+      'Rehearse transitions — the joins are what separate a solo from a list.',
+      'Full run with the lehra playing, no stopping for mistakes.',
+      'Perform it. Invite family. This is a real recital.'
+    ],
+    drills: ['Each transition ×3 in isolation', 'Half-solo run (uthan → kaida → tihai)', 'Full solo run-through ×2, unbroken'],
+    homework: 'One complete solo run every day of the week before the recital.',
+    tip: 'A solo is not a list of pieces; it is a rising line. Teach pacing: if the rela arrives at full speed too early, there is nowhere left to go.',
+    videos: ['zakirTeentaal','zakirJhaptaal','ishaanRupak'], forms: ['peshkar','kaida','rela','chakradar']
   }
 ];
 
@@ -785,7 +1113,16 @@ const CHECKLIST = [
   { text: 'Switch any theka between ekgun and dugun without stopping', level: 5 },
   { text: 'Land a simple tihai on sam', level: 5 },
   { text: 'Play a rela cell evenly at 80+ BPM', level: 5 },
-  { text: 'Clap the structure of an unfamiliar taal straight from the reference notation', level: 5 }
+  { text: 'Clap the structure of an unfamiliar taal straight from the reference notation', level: 5 },
+  { text: 'Play the Delhi kaida with its khali half and close it with a tihai', level: 6 },
+  { text: 'Compose an original palta that obeys the kaida\'s vocabulary', level: 6 },
+  { text: 'Land both a damdar and a bedam tihai on sam', level: 6 },
+  { text: 'Play a rela evenly for two minutes without tension', level: 6 },
+  { text: 'Perform one tukda and one chakradar from memory', level: 6 },
+  { text: 'Switch between ekgun, dugun, tigun and chaugun without losing sam', level: 6 },
+  { text: 'Speak and play tisra, chatusra and khanda jaati', level: 6 },
+  { text: 'Accompany a light-classical song including a laggi section', level: 6 },
+  { text: 'Perform a complete tabla solo with a lehra', level: 6 }
 ];
 
 /* ============ TEACHER'S GUIDE ============
