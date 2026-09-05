@@ -1,16 +1,16 @@
-# Tablafy — Tabla Foundations Workshop
+# Tablafy — Tabla Discovery Workshop
 
 This repository contains the **public** Tablafy workshop site. It deliberately does not contain the student curriculum, play-alongs, teaching guide, or practice library.
 
 ## The offer
 
-**Tabla Foundations** is a four-week workshop for absolute beginners:
+**Tablafy** is a four-week discovery workshop for children aged 7 and above:
 
-- one live hour each week;
-- small groups of five to eight learners;
-- child and adult groups are kept separate;
+- one in-person hour each Friday evening;
+- one shared Irving-area group of up to eight children;
 - no exam, certification, or advanced-training claim;
-- focused student practice material is shared after enrolment.
+- instruments are used only at the workshop venue;
+- no tabla purchase or at-home practice is expected.
 
 ## Private student library
 
