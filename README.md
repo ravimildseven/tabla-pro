@@ -1,4 +1,55 @@
-# Tablafy — Learn Tabla, One Bol at a Time
+# Tablafy — teacher-led tabla learning
+
+Tablafy is now both a public enrolment site and a practice studio. The public experience is designed to turn a curious parent or adult learner into a **trial-class request**; the 32-week studio makes the live class easier to practise between sessions.
+
+## What changed
+
+- A focused public home page for child, adult and online learners.
+- Trial-class calls to action throughout the site, with a short enrolment form.
+- Clear positioning: live teaching first; Tablafy is the practice system, not a replacement for the teacher.
+- A Cloud Run-ready Node server and a Firestore-backed `POST /api/leads` endpoint.
+
+No pricing, teacher biography, class times, location, or testimonials have been invented. Add those only when they are real—those four details are the highest-value next content changes.
+
+## Run locally
+
+```bash
+npm install
+npm start
+```
+
+Open [http://localhost:8080](http://localhost:8080). The site works locally; lead submission returns a clear configuration message until Firestore is connected.
+
+## Google Cloud deployment
+
+Use **Cloud Run + Firestore** first. This retains the simple single-page studio while giving you a reliable home for trial leads. It is deliberately smaller than building logins, payments, AI feedback, and a parent portal before classes are validated.
+
+1. Select a Google Cloud project and enable Cloud Run, Cloud Build and Firestore.
+2. Create a Firestore Native database in a region close to your learners. The application stores each submitted trial request as a `trialLeads` document, with its status initially set to `new`.
+3. Create a dedicated Cloud Run service account with the Firestore Datastore User role.
+4. Deploy directly from this source directory:
+
+```bash
+PROJECT_ID="your-project-id"
+REGION="us-central1"
+SERVICE_ACCOUNT="tablafy-web@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud config set project "$PROJECT_ID"
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com firestore.googleapis.com
+gcloud firestore databases create --location=nam5 --edition=standard --type=firestore-native
+gcloud iam service-accounts create tablafy-web
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member="serviceAccount:${SERVICE_ACCOUNT}" \
+  --role="roles/datastore.user"
+gcloud run deploy tablafy --source . --region="$REGION" \
+  --service-account="$SERVICE_ACCOUNT" --allow-unauthenticated
+```
+
+Cloud Run supplies `GOOGLE_CLOUD_PROJECT`, so no service-account key or secret is placed in the site. If the public site remains on GitHub Pages instead, set `window.TABLAFY_LEADS_URL` before the page script to the Cloud Run URL plus `/api/leads`, and add a narrowly scoped CORS policy before enabling it.
+
+After the first paid cohort validates the offer, the sensible next Cloud additions are: Firebase Authentication for student/parent accounts, Firestore-backed cross-device practice history, Cloud Storage for short practice-video uploads, and a small teacher dashboard. Payment and AI performance feedback should wait until the teaching workflow has repeat demand.
+
+Google’s current deployment guidance supports source deployment to Cloud Run with `gcloud run deploy --source .`; Firestore’s current CLI supports creating a Native database with `gcloud firestore databases create`. See [Cloud Run’s Node deployment guide](https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service) and [Firestore database setup](https://docs.cloud.google.com/firestore/native/docs/manage-databases).
 
 A complete beginner curriculum for teaching Tabla to first-timers (designed for kids),
 built as a single shareable web page. Companion project to [laya-kosh](https://github.com/ravimildseven/laya-kosh).
@@ -78,15 +129,10 @@ in a `samples/` folder next to `index.html` — they are detected and used autom
 7. Weeks 21–32 are Year Two — kaida and paltas, tihai types, rela, tukda, chakradar,
    peshkar, layakari, jaati, laggi, and finally assembling a complete solo.
 
-## Local development
+## Static-only local preview
 
-```bash
-/opt/homebrew/bin/python3 -m http.server 8000
-```
-
-Then open `http://localhost:8000`. Serving over http (rather than opening the file directly)
-is what lets YouTube embeds play inline and `samples/*.mp3` load. The same config is in
-`.claude/launch.json`.
+`/opt/homebrew/bin/python3 -m http.server 8000` also works for a static preview, but trial
+requests cannot be stored from that server. Use `npm start` for the Cloud Run-compatible local flow.
 
 ## Files
 

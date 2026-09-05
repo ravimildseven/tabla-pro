@@ -1,8 +1,3 @@
-# macOS AppleDouble / metadata files (created on exFAT & network volumes)
-._*
+node_modules/
 .DS_Store
-.Spotlight-V100
-.Trashes
-
-# Optional real-tabla recordings are large; uncomment to keep them out of git
-# samples/
+.env

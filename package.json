@@ -1,0 +1,17 @@
+{
+  "name": "tablafy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Teacher-led tabla learning and enrolment site",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^7.11.0",
+    "express": "^4.21.2"
+  }
+}

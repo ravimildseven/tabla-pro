@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tablafy — Learn Tabla, One Bol at a Time</title>
+<title>Tablafy — Teacher-led Tabla Learning</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -359,24 +359,58 @@ body.playing-pad{padding-bottom:74px}
 
 footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
 @media(max-width:560px){.cell{min-width:52px}.wk-body{padding:14px}.playbar{margin-left:0;width:100%}}
+
+/* ---------- public site / enrolment ---------- */
+.hero-kicker{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 12px;font-size:.77rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:16px}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px auto 2px}
+.hero-action,.cta{appearance:none;border:0;border-radius:999px;padding:12px 19px;font:700 .94rem 'Outfit',sans-serif;cursor:pointer;text-decoration:none;transition:transform .16s var(--ease),box-shadow .16s,background .16s}
+.hero-action{background:#fff;color:#9c3f05;box-shadow:0 7px 20px rgba(57,16,4,.22)}
+.hero-action.alt{color:#fff;background:rgba(73,18,5,.2);border:1px solid rgba(255,255,255,.4);box-shadow:none}
+.hero-action:hover,.cta:hover{transform:translateY(-2px)}
+.nav-brand{display:flex;align-items:center;font-family:'Fraunces',serif;font-weight:900;color:var(--saffron);padding:0 7px;white-space:nowrap}
+.nav-cta{background:var(--teal);color:#fff;margin-left:5px}.nav-cta:hover{background:#095b53;color:#fff}
+.welcome{padding:4px 0 16px}
+.welcome-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch;margin-bottom:26px}
+.welcome-card,.offer-card,.proof-card,.how-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.welcome-card{padding:28px}.welcome-card h2{font-size:clamp(1.75rem,4vw,2.65rem);max-width:650px}.welcome-card p{color:var(--soft);max-width:620px;margin:12px 0 20px;font-size:1.02rem}
+.eyebrow{color:var(--teal);font-size:.76rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;margin-bottom:7px}
+.cta{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--saffron),#f0871f);color:#fff;box-shadow:0 7px 17px rgba(226,87,10,.25)}
+.cta.ghost{background:var(--teal-soft);color:var(--teal);box-shadow:none;margin-left:8px}
+.cta.teal{background:var(--teal);box-shadow:0 7px 17px rgba(13,118,108,.25)}
+.path-card{padding:23px;background:linear-gradient(160deg,#123d3a,#0b625a);color:#fff;position:relative;overflow:hidden}
+.path-card:after{content:'♪';position:absolute;right:-10px;bottom:-45px;font:900 12rem 'Fraunces',serif;color:rgba(255,255,255,.08)}
+.path-card h3{font-size:1.5rem;position:relative}.path-card p{position:relative;opacity:.85;margin:8px 0 16px}.path-list{list-style:none;position:relative}.path-list li{border-top:1px solid rgba(255,255,255,.16);padding:9px 0;font-size:.9rem}.path-list b{color:#c3f2e9}
+.section-intro{text-align:center;max-width:680px;margin:46px auto 20px}.section-intro h2{font-size:clamp(1.55rem,3.5vw,2.1rem)}.section-intro p{color:var(--soft);margin-top:7px}
+.path-grid,.offer-grid,.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.path-option{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fff;text-align:left;cursor:pointer;transition:.18s var(--ease);font:inherit;color:var(--ink)}.path-option:hover{border-color:var(--saffron);transform:translateY(-3px);box-shadow:var(--shadow)}.path-option .path-icon{font-size:1.8rem}.path-option h3{font-size:1.14rem;margin:8px 0 4px}.path-option p{font-size:.9rem;color:var(--soft)}
+.offer-card{padding:21px;position:relative}.offer-card.featured{border:2px solid var(--saffron);background:linear-gradient(150deg,#fff,#fff8ef)}.offer-card .ribbon{position:absolute;right:14px;top:-11px;background:var(--saffron);color:#fff;font-size:.71rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;padding:4px 9px;border-radius:999px}.offer-card h3{font-size:1.2rem}.offer-card p{color:var(--soft);font-size:.91rem;margin:7px 0 13px}.offer-card ul{list-style:none;font-size:.9rem}.offer-card li{margin:7px 0}.offer-card li:before{content:'✓';color:var(--teal);font-weight:900;margin-right:7px}
+.how-card{padding:19px}.how-no{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--saffron-soft);color:#a34406;font-weight:900;font-size:.85rem}.how-card h3{font-size:1.05rem;margin:10px 0 3px}.how-card p{font-size:.9rem;color:var(--soft)}
+.student-studio{margin-top:44px;padding:24px;border-radius:var(--radius);background:linear-gradient(135deg,var(--gold-soft),#fff);border:1px solid #efdbab}.studio-head{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}.studio-head h2{font-size:1.45rem}.studio-head p{color:var(--soft);font-size:.92rem;max-width:600px}.studio-head .cta{background:var(--teal);box-shadow:none}
+.lead-note{font-size:.8rem;color:var(--soft);margin-top:10px}.lead-note a{color:var(--teal)}
+.lead-sheet{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(27,17,12,.55);backdrop-filter:blur(4px)}.lead-sheet.show{display:flex}.lead-box{width:min(100%,530px);background:#fff;border-radius:22px;padding:28px;box-shadow:var(--shadow-lg);position:relative}.lead-box h2{font-size:1.65rem}.lead-box p{color:var(--soft);margin:6px 0 18px}.lead-x{position:absolute;right:14px;top:12px;border:0;background:none;font-size:1.25rem;cursor:pointer;color:var(--soft)}.lead-form{display:grid;gap:12px}.lead-form label{font-size:.82rem;font-weight:800;color:#5c4c40}.lead-form input,.lead-form select,.lead-form textarea{width:100%;display:block;margin-top:4px;border:1px solid var(--line);border-radius:10px;padding:10px 11px;font:inherit;color:var(--ink);background:#fff}.lead-form textarea{resize:vertical;min-height:65px}.lead-form button{justify-content:center;margin-top:3px}.lead-status{font-size:.88rem;font-weight:700;min-height:1.3em}.lead-status.error{color:#b13724}.lead-status.success{color:var(--teal)}
+@media(max-width:760px){.welcome-grid{grid-template-columns:1fr}.path-grid,.offer-grid,.how-grid{grid-template-columns:1fr}.nav-brand{display:none}.cta.ghost{display:none}.welcome-card{padding:23px}.student-studio{padding:18px}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="hero">
+    <div class="hero-kicker">Live teaching · daily practice · real rhythm</div>
     <div class="wordmark">
       <div class="logo"><i class="ring a"></i><i class="ring b"></i><i class="core"></i></div>
       <h1>Tablafy</h1>
     </div>
-    <p class="tagline">Learn tabla the traditional way — <b>bols → bol-groups → taals → repertoire</b>.
-       A complete course from a child's first stroke to a performed solo, everything notated in English,
-       with play-along for every taal and a tabla you can actually play.</p>
+    <p class="tagline">A warm, teacher-led path into tabla — from a first bol to a confident performance.
+       Learn in class, then practise with a clear plan at home.</p>
+    <div class="hero-actions">
+      <button class="hero-action" data-open-lead data-audience="child">Book a trial class →</button>
+      <button class="hero-action alt" data-scroll-studio>Explore the learning studio</button>
+    </div>
     <div class="herostats" id="heroStats"></div>
   </div>
 </header>
 
 <nav>
+  <span class="nav-brand">Tablafy</span>
   <button class="tab on" data-s="home">🏠 Home</button>
   <button class="tab" data-s="weeks">📅 Weekly Plan</button>
   <button class="tab" data-s="bols">🔤 Bols</button>
@@ -387,11 +421,65 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
   <button class="tab" data-s="progress">📈 Practice Log</button>
   <button class="tab" data-s="teach">📖 Teach</button>
   <button class="tab" data-s="videos">🎬 All Videos</button>
+  <button class="tab nav-cta" data-open-lead data-audience="child">Book a trial</button>
 </nav>
 
 <main>
   <section id="home" class="show">
-    <div class="bento" id="bento"></div>
+    <div class="welcome">
+      <div class="welcome-grid">
+        <article class="welcome-card">
+          <div class="eyebrow">A modern way to learn a classical art</div>
+          <h2>Tabla lessons that make practice feel possible.</h2>
+          <p>Every learner gets live guidance, a simple weekly target, and a beautiful practice companion built around how tabla is actually learned: <b>bols → bol-groups → taals → repertoire.</b></p>
+          <button class="cta" data-open-lead data-audience="child">Find the right beginner path</button>
+          <button class="cta ghost" data-scroll-studio>Already a student?</button>
+        </article>
+        <aside class="welcome-card path-card">
+          <div class="eyebrow" style="color:#c3f2e9">The Tablafy method</div>
+          <h3>Class creates the spark. Practice builds the player.</h3>
+          <p>We use the studio to make home practice visible, focused and easy to share with families.</p>
+          <ul class="path-list">
+            <li><b>1. Learn live</b> — posture, sound and rhythm with a teacher.</li>
+            <li><b>2. Practise daily</b> — one small, measurable goal at a time.</li>
+            <li><b>3. Perform proudly</b> — build toward a real recital, not just videos watched.</li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="section-intro" id="choose-path">
+        <div class="eyebrow">Start here</div>
+        <h2>Who is learning tabla?</h2>
+        <p>Choose a path and we’ll shape the trial around the learner—not a one-size-fits-all syllabus.</p>
+      </div>
+      <div class="path-grid">
+        <button class="path-option" data-open-lead data-audience="child"><div class="path-icon">🧒</div><h3>A child beginner</h3><p>Playful foundations, family-friendly practice and a clear performance goal.</p></button>
+        <button class="path-option" data-open-lead data-audience="adult"><div class="path-icon">🧑</div><h3>An adult beginner</h3><p>Reconnect with rhythm through a welcoming, low-pressure route into tabla.</p></button>
+        <button class="path-option" data-open-lead data-audience="online"><div class="path-icon">🌍</div><h3>An online learner</h3><p>Join a small live cohort and use the studio between sessions, wherever you are.</p></button>
+      </div>
+
+      <div class="section-intro">
+        <div class="eyebrow">Ways to learn</div>
+        <h2>Begin with people, not another app.</h2>
+        <p>Tablafy is the practice system that makes a teacher-led class more effective.</p>
+      </div>
+      <div class="offer-grid">
+        <article class="offer-card"><h3>In-person foundations</h3><p>A small local group for first-time learners.</p><ul><li>Weekly live class</li><li>At-home Tablafy practice plan</li><li>Parent-friendly weekly update</li><li>End-of-course mini recital</li></ul></article>
+        <article class="offer-card featured"><span class="ribbon">Best first step</span><h3>Trial class</h3><p>Meet the instrument, make your first sounds, and see whether the method feels right.</p><ul><li>No prior experience needed</li><li>Placement by age and experience</li><li>Bring questions about getting a tabla</li><li>A short personalised next-step plan</li></ul><button class="cta" style="margin-top:15px" data-open-lead data-audience="child">Request a trial</button></article>
+        <article class="offer-card"><h3>Online learning circle</h3><p>A small, live cohort for learners outside the local class.</p><ul><li>Teacher-led video sessions</li><li>Weekly practice check-in</li><li>Shared class rhythm and accountability</li><li>Tablafy studio between lessons</li></ul></article>
+      </div>
+
+      <div class="section-intro"><div class="eyebrow">What happens next</div><h2>A small commitment, a real start.</h2></div>
+      <div class="how-grid">
+        <article class="how-card"><span class="how-no">1</span><h3>Tell us about the learner</h3><p>Age, experience, preferred format and the musical goal are enough to start.</p></article>
+        <article class="how-card"><span class="how-no">2</span><h3>Take a trial class</h3><p>Make sounds, feel a simple rhythm and receive a recommended starting path.</p></article>
+        <article class="how-card"><span class="how-no">3</span><h3>Build the habit</h3><p>Use the guided weekly plan and practice studio to create progress that can be heard.</p></article>
+      </div>
+    </div>
+    <div class="student-studio" id="student-studio">
+      <div class="studio-head"><div><div class="eyebrow">For current students</div><h2>Your Tablafy learning studio</h2><p>Open this week’s plan, play a taal, log a practice session, or explore the full curriculum.</p></div><button class="cta" data-open-studio>Open my practice plan</button></div>
+      <div class="bento" id="bento" style="margin-top:20px"></div>
+    </div>
   </section>
 
   <section id="forms">
@@ -529,6 +617,26 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
   </section>
 </main>
 
+<div class="lead-sheet" id="leadSheet" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+  <div class="lead-box">
+    <button class="lead-x" id="leadClose" aria-label="Close">✕</button>
+    <div class="eyebrow">Start with a trial class</div>
+    <h2 id="leadTitle">Tell us about the learner</h2>
+    <p>We’ll use this to recommend the right first class. No payment is requested here.</p>
+    <form class="lead-form" id="leadForm">
+      <input type="hidden" id="leadAudience" name="audience" value="child">
+      <label>Parent or learner name<input name="name" required autocomplete="name" placeholder="Your name"></label>
+      <label>Email<input name="email" required type="email" autocomplete="email" placeholder="you@example.com"></label>
+      <label>Learner age or age range<input name="age" placeholder="e.g. 8, 13–15, adult"></label>
+      <label>Preferred class format<select name="format" id="leadFormat"><option value="in-person">In person</option><option value="online">Online live cohort</option><option value="not-sure">Not sure yet</option></select></label>
+      <label>Anything helpful to know?<textarea name="note" placeholder="Prior music experience, availability, goals…"></textarea></label>
+      <button class="cta" type="submit">Request a trial class →</button>
+      <p class="lead-status" id="leadStatus" aria-live="polite"></p>
+    </form>
+    <p class="lead-note">This form is ready for the Cloud Run lead endpoint described in the project README. Until it is configured, requests remain on this device so no learner details are lost or sent to an unknown service.</p>
+  </div>
+</div>
+
 <div id="shSheet" class="sheet">
   <div class="sheetbox">
     <button class="sheetx" id="shClose" title="Close">✕</button>
@@ -555,7 +663,7 @@ footer{text-align:center;color:var(--soft);font-size:.85rem;padding:26px 16px}
   </div>
 </div>
 
-<footer><b>Tablafy</b> · made for teaching first-timers · videos verified via YouTube oEmbed · edit <b>data.js</b> to customise</footer>
+<footer><b>Tablafy</b> · teacher-led tabla learning, supported by daily practice · play-alongs and reference videos included</footer>
 
 <script src="data.js"></script>
 <script>
@@ -820,11 +928,56 @@ document.addEventListener('click',e=>{
 });
 
 /* tabs */
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('section').forEach(x=>x.classList.remove('show'));
   b.classList.add('on'); $('#'+b.dataset.s).classList.add('show');
   window.scrollTo({top:0});
+});
+
+/* ---------- trial-class lead form ----------
+   Set window.TABLAFY_LEADS_URL before this page loads when hosting the
+   front end separately from its Cloud Run API. On a Cloud Run deployment,
+   the same-origin /api/leads endpoint works with no extra configuration. */
+const LEAD_ENDPOINT=window.TABLAFY_LEADS_URL||'/api/leads';
+const leadSheet=$('#leadSheet'), leadForm=$('#leadForm'), leadStatus=$('#leadStatus');
+const audienceCopy={child:'a child beginner',adult:'an adult beginner',online:'an online learner'};
+function openLead(audience='child'){
+  const a=audienceCopy[audience]?audience:'child';
+  $('#leadAudience').value=a;
+  $('#leadTitle').textContent=`Start ${audienceCopy[a]}'s tabla journey`;
+  $('#leadFormat').value=a==='online'?'online':'in-person';
+  leadStatus.textContent=''; leadStatus.className='lead-status';
+  leadSheet.classList.add('show');
+  setTimeout(()=>leadForm.elements.name.focus(),50);
+}
+function closeLead(){ leadSheet.classList.remove('show'); }
+document.querySelectorAll('[data-open-lead]').forEach(b=>b.addEventListener('click',()=>openLead(b.dataset.audience)));
+document.querySelectorAll('[data-scroll-studio]').forEach(b=>b.addEventListener('click',()=>$('#student-studio').scrollIntoView({behavior:'smooth',block:'start'})));
+document.querySelectorAll('[data-open-studio]').forEach(b=>b.addEventListener('click',()=>$('#bento').scrollIntoView({behavior:'smooth',block:'start'})));
+$('#leadClose').onclick=closeLead;
+leadSheet.addEventListener('click',e=>{if(e.target===leadSheet)closeLead();});
+
+leadForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const data=Object.fromEntries(new FormData(leadForm).entries());
+  data.source='tablafy-website'; data.createdAt=new Date().toISOString();
+  const canUseApi=!!window.TABLAFY_LEADS_URL || location.hostname==='localhost' || location.hostname.endsWith('.run.app');
+  leadStatus.textContent='Sending your request…'; leadStatus.className='lead-status';
+  try{
+    if(!canUseApi) throw new Error('Lead service is not configured');
+    const res=await fetch(LEAD_ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data)});
+    if(!res.ok) throw new Error('Lead service is unavailable');
+    leadForm.reset();
+    leadStatus.textContent='Thanks — your trial request is in. We’ll be in touch soon.';
+    leadStatus.className='lead-status success';
+  }catch(err){
+    const draftKey='tablafyTrialDrafts';
+    const drafts=JSON.parse(localStorage.getItem(draftKey)||'[]');
+    drafts.push(data); localStorage.setItem(draftKey,JSON.stringify(drafts));
+    leadStatus.textContent='Your request is saved on this device. Connect the Cloud Run lead service to receive it.';
+    leadStatus.className='lead-status error';
+  }
 });
 
 /* ================= WEEKS (grouped by level) ================= */
